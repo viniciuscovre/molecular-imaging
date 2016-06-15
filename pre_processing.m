@@ -22,7 +22,7 @@ function varargout = pre_processing(varargin)
 
 % Edit the above text to modify the response to help pre_processing
 
-% Last Modified by GUIDE v2.5 14-Jun-2016 20:32:45
+% Last Modified by GUIDE v2.5 15-Jun-2016 10:03:15
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -71,3 +71,55 @@ function varargout = pre_processing_OutputFcn(hObject, eventdata, handles)
 
 % Get default command line output from handles structure
 varargout{1} = handles.output;
+
+
+% --- Executes on button press in rigidOption.
+function rigidOption_Callback(hObject, eventdata, handles)
+% hObject    handle to rigidOption (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hint: get(hObject,'Value') returns toggle state of rigidOption
+
+
+% --- Executes on button press in videoStabilizationOption.
+function videoStabilizationOption_Callback(hObject, eventdata, handles)
+% hObject    handle to videoStabilizationOption (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hint: get(hObject,'Value') returns toggle state of videoStabilizationOption
+
+
+% --- Executes on button press in backgroundSubtractionOption.
+function backgroundSubtractionOption_Callback(hObject, eventdata, handles)
+% hObject    handle to backgroundSubtractionOption (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hint: get(hObject,'Value') returns toggle state of backgroundSubtractionOption
+
+
+% --- Executes on button press in pixelByPixelOption.
+function pixelByPixelOption_Callback(hObject, eventdata, handles)
+% hObject    handle to pixelByPixelOption (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hint: get(hObject,'Value') returns toggle state of pixelByPixelOption
+
+
+% --- Executes on button press in pixelInARegionOption.
+function pixelInARegionOption_Callback(hObject, eventdata, handles)
+% hObject    handle to pixelInARegionOption (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hint: get(hObject,'Value') returns toggle state of pixelInARegionOption
+
+
+% --------------------------------------------------------------------
+function Untitled_1_Callback(hObject, eventdata, handles)
+% hObject    handle to Untitled_1 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)

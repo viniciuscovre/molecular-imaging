@@ -41,10 +41,11 @@ for i = 4 : size(listingFolders,1)
     img800 = data800{1,1}{1,1};
     imgWhite = dataWhite{1,1}{1,1};
     
-    %use convention "new" or "corrected" below
-    
     %motion correction
     [newImg700, newImg800] = coregis_2(img700, img800, imgWhite);
+    
+    %video stabilization
+    
     
     %going to directory for the images after processing
     if ~exist('new', 'dir')
