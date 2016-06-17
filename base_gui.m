@@ -22,7 +22,7 @@ function varargout = base_gui(varargin)
 
 % Edit the above text to modify the response to help base_gui
 
-% Last Modified by GUIDE v2.5 16-Jun-2016 20:03:01
+% Last Modified by GUIDE v2.5 17-Jun-2016 15:38:13
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -121,3 +121,9 @@ imagesc(handles.image2{handles.current_image},'Parent',handles.axes2);
 
 guidata(hObject,handles);
 
+
+% --- Executes on button press in helpButton.
+function helpButton_Callback(hObject, eventdata, handles)
+% hObject    handle to helpButton (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
