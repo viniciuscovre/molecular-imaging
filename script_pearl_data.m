@@ -72,8 +72,6 @@ function [imgArray700, imgArray800, imgArrayWhite] = script_pearl_data(folderNam
         %imwrite(newImg800, [listingFolders(i).name '_800.png']);
         %imgArray700{count} = imread([listingFolders(i).name '_700.png']);
         %imgArray800{count} = imread([listingFolders(i).name '_800.png']);
-
->>>>>>> 2c1c9364e324133f88dbf8676833a15b3a758740
     end
     
 end
