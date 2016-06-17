@@ -78,7 +78,7 @@ function load_btn_Callback(hObject, eventdata, handles)
 % hObject    handle to load_btn (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-[fname dname] = uigetfile('.txt','Select the Experiment File','D:\Internship\Tichauer Research Resources\Sample Data\Pearl Data\Pearl data');
+[fname dname] = uigetfile('.txt','Select the Experiment File');
 
 file= fopen(fullfile(dname,fname));
 [information,value]= textscan(file,'%s %s');
