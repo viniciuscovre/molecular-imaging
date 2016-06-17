@@ -7,5 +7,5 @@ file= fopen(fullfile(dname,fname));
 [information,value]= textscan(file,'%s %s');
 
 if(char(information{1,2}) == 'Pearl')
-    script_pearl_data(dname);
+    [images700,images800,imagesWhite]=script_pearl_data(dname);
 end

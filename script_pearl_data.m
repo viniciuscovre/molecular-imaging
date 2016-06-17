@@ -1,4 +1,4 @@
-function [imgArray700 imgArray800 imgArrayWhite] = script_pearl_data(folderName)
+function [imgArray700, imgArray800, imgArrayWhite] = script_pearl_data(folderName)
     % MOTION CORRECTION USING COREGIS ALGORITHM
 
     %   Script for motion correction of molecular images of tissues. It uses
@@ -72,5 +72,6 @@ function [imgArray700 imgArray800 imgArrayWhite] = script_pearl_data(folderName)
         %imgArray800{count} = imread([listingFolders(i).name '_800.png']);
 
     end
+    
 end
 
