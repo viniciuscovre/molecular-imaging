@@ -27,8 +27,6 @@ if strcmp(lower(ftype),'.mat') % If user opens a .mat file
     
 elseif strcmp(lower(ftype),'.czi')
     
-    % code for script_csz
-    
 else % If user opens a text file
     
     [information,value] = textscan(file,'%s %s');
