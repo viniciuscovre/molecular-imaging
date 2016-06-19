@@ -22,7 +22,7 @@ function varargout = base_gui(varargin)
 
 % Edit the above text to modify the response to help base_gui
 
-% Last Modified by GUIDE v2.5 17-Jun-2016 15:38:13
+% Last Modified by GUIDE v2.5 19-Jun-2016 17:00:02
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -88,6 +88,7 @@ function load_btn_Callback(hObject, eventdata, handles)
     handles.imageWhite=imagesWhite;
     handles.current_image = 1;
     
+    
     % show images in the axes of GUI
     imagesc(handles.image1{handles.current_image},'Parent',handles.axes1);
     imagesc(handles.image2{handles.current_image},'Parent',handles.axes2);
@@ -127,3 +128,31 @@ function helpButton_Callback(hObject, eventdata, handles)
 % hObject    handle to helpButton (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
+
+
+% --- Executes on slider movement.
+function image_slider_Callback(hObject, eventdata, handles)
+% hObject    handle to image_slider (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'Value') returns position of slider
+%        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
+
+sliderValue=  get(hObject,'Value');
+assignin('base','sliderValue','sliderValue');
+
+set(handles.textNum,'String',num2str(sliderValue));
+
+
+
+% --- Executes during object creation, after setting all properties.
+function image_slider_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to image_slider (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: slider controls usually have a light gray background.
+if isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor',[.9 .9 .9]);
+end
