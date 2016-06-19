@@ -78,22 +78,22 @@ function load_btn_Callback(hObject, eventdata, handles)
 % hObject    handle to load_btn (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-[fname dname] = uigetfile('.txt','Select the Experiment File');
-
-file= fopen(fullfile(dname,fname));
-[information,value]= textscan(file,'%s %s');
-
-if(char(information{1,2}) == 'Pearl')
-    [images700,images800,imagesWhite]=script_pearl_data(dname);
+    
+    %run script to load the experiment data to program
+    load_experiment;
+    
+    %inclue the output of load to handles to be available in all gui
     handles.image1=images700;
     handles.image2=images800;
     handles.imageWhite=imagesWhite;
     handles.current_image = 1;
     
+    % show images in the axes of GUI
     imagesc(handles.image1{handles.current_image},'Parent',handles.axes1);
     imagesc(handles.image2{handles.current_image},'Parent',handles.axes2);
-end
-guidata(hObject,handles);
+    
+    %save the new handles
+    guidata(hObject,handles);
 
 
 % --- Executes on button press in previous_btn.
