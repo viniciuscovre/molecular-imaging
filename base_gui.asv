@@ -117,6 +117,32 @@ function load_btn_Callback(hObject, eventdata, handles)
     guidata(hObject,handles);
 
 
+% --- Executes on button press in previous_btn.
+function previous_btn_Callback(hObject, eventdata, handles)
+% hObject    handle to previous_btn (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+handles.current_image = handles.current_image - 1;
+
+imagesc(handles.image1{handles.current_image},'Parent',handles.axes1);
+imagesc(handles.image2{handles.current_image},'Parent',handles.axes2);
+
+guidata(hObject,handles);
+
+% --- Executes on button press in next_btn.
+function next_btn_Callback(hObject, eventdata, handles)
+% hObject    handle to next_btn (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+handles.current_image = handles.current_image + 1;
+
+imagesc(handles.image1{handles.current_image},'Parent',handles.axes1);
+imagesc(handles.image2{handles.current_image},'Parent',handles.axes2);
+
+guidata(hObject,handles);
+
+
 % --- Executes on button press in helpButton.
 function helpButton_Callback(hObject, eventdata, handles)
 % hObject    handle to helpButton (see GCBO)
@@ -184,7 +210,8 @@ function respondToContSlideCallback(hObject, eventdata)
     
     newVal = floor(get(hObject,'Value'));
     
-   
+    test1=['newVal is',num2str(newVal)];
+    disp(test1);
  
     % set the slider value to this integer which will be in the set {1,2,3,...,12,13}
     set(hObject,'Value',newVal);
@@ -194,20 +221,17 @@ function respondToContSlideCallback(hObject, eventdata)
  
     % now only do something in response to the slider movement if the 
     % new value is different from the last slider value
-
+    test2=['lastSliderVal is',num2str(handles.lastSliderVal)];
+    disp(test2);
     if newVal ~= handles.lastSliderVal
-         
-       
+        test3=
          % save the new value
          handles.lastSliderVal = newVal;
-         
 
          % display the current value of the slider
-         set(handles.textNum,'String',num2str(get(hObject,'Value')));
-         guidata(hObject,handles);
-         
+        set(handles.textNum,'String',num2str(get(hObject,'Value')));
 
-         imagesc(handles.image1{get(hObject,'Value')},'Parent',handles.axes1);
-         imagesc(handles.image2{get(hObject,'Value')},'Parent',handles.axes2);
+        imagesc(handles.image1{get(hObject,'Value')},'Parent',handles.axes1);
+        imagesc(handles.image2{get(hObject,'Value')},'Parent',handles.axes2);
     end
     
