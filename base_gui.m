@@ -93,7 +93,9 @@ function load_btn_Callback(hObject, eventdata, handles)
     %inclue the output of load to handles to be available in all gui
     handles.image1=images700;
     handles.image2=images800;
-    handles.imageWhite=imagesWhite;
+    if hasWhite
+        handles.imageWhite=imagesWhite;
+    end
     handles.current_image = 1;
     handles.last_image = length(images700);
     

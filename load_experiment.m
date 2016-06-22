@@ -31,22 +31,29 @@ elseif strcmp(lower(ftype),'.czi')
     
 else % If user opens a text file
     
-    [information,value] = textscan(file,'%s %s');
-
+     tline=fgets(file);
+     a=textscan(tline,'%s','delimiter','=');
+     b=a{1,1};
+     
+    
     % Code for getting the type in the text file for each OS
     if isunix
         type = information{1,2}{7,1}(1:end-1);
     elseif ispc
-        type = char(information{1,2});
+        type=b{2,1};
+        %type = char(information{1,2});
     else
         disp('Platform not supported')
     end
     
     switch lower(type)
         case 'pearl'
-            [images700,images800,imagesWhite,textData]=script_pearl_data(dname);
+            fclose(file);
+            [images700,images800,imagesWhite,textData,hasWhite]=script_pearl_data(dname);
         case 'csz'
             % code for script_csz
+        case 'odyssey'
+            [images700,images800,hasWhite] = script_odyssey_data(dname);
         otherwise
             h = msgbox('Invalid Type', 'Error','error');
             quit
