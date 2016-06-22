@@ -44,7 +44,7 @@ else % If user opens a text file
     
     switch lower(type)
         case 'pearl'
-            [images700,images800,imagesWhite]=script_pearl_data(dname);
+            [images700,images800,imagesWhite,textData]=script_pearl_data(dname);
         case 'csz'
             % code for script_csz
         otherwise

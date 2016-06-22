@@ -54,16 +54,13 @@ for i = 4 : size(listingFolders,1)
         tline = fgets(acq);
         while ischar(tline)
             if ~isempty(strfind(tline,'TimeStamp'))
-                a=textscan(tline,'%s','delimiter','=');
-                b=a{1,1};
-                textData(count).timestamp= b{2,1};
-            end
-            tline = fgets(acq);
+                textData
+            tline = fgets(fid);
         end
 
-        fclose(acq);
+        fclose(fid);
         
-        %textData{count}=acq;
+        textData{count}=acq;
         
         count = count+1;
     end
