@@ -1,5 +1,4 @@
-function [imgArray700, imgArray800,hasWhite] = script_odyssey_data(folderName)
-
+function [imgArray700, imgArray800,hasWhite,numberOfScans] = script_odyssey_data(folderName)
 
 cd(folderName) %go to folder selected by the user
 count = 1;
@@ -24,20 +23,12 @@ for i = 4 : size(listingFolders,1)
       
         
         %get the image by itself (image matrix)
-        img700 = data700{1,1}{1,1};
-        img800 = data800{1,1}{1,1};
-        
-        %creates the array of images
-        imgArray700{count}= img700;
-        imgArray800{count}= img800;
-        
-        
-        
-        
+        imgArray700(:,:,1,count) = data700{1,1}{1,1};
+        imgArray800(:,:,1,count) = data800{1,1}{1,1};
+          
         count = count+1;
-    end
-    
-   
+    end 
 end
+numberOfScans=count-1;
 hasWhite=false;
 end

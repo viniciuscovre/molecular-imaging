@@ -49,11 +49,11 @@ else % If user opens a text file
     switch lower(type)
         case 'pearl'
             fclose(file);
-            [images700,images800,imagesWhite,textData,hasWhite]=script_pearl_data(dname);
+            [images700,images800,imagesWhite,textData,hasWhite,numberOfScans]=script_pearl_data(dname);
         case 'csz'
             % code for script_csz
         case 'odyssey'
-            [images700,images800,hasWhite] = script_odyssey_data(dname);
+            [images700,images800,hasWhite,numberOfScans] = script_odyssey_data(dname);
         otherwise
             h = msgbox('Invalid Type', 'Error','error');
             quit

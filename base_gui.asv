@@ -130,6 +130,35 @@ function image_slider_Callback(hObject, eventdata, handles)
 % Hints: get(hObject,'Value') returns position of slider
 %        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
 
+% get the slider value and convert it to the nearest integer that is less
+ % than this value
+ %{
+ newVal = floor(get(hObject,'Value'));
+ 
+  % set the slider value to this integer which will be in the set {1,2,3,...,12,13}
+ set(hObject,'Value',newVal);
+ 
+  % now only do something in response to the slider movement if the 
+ % new value is different from the last slider value
+ if newVal ~= handles.lastSliderVal
+     
+     % save the new value
+     handles.lastSliderVal = newVal;
+     
+     % display the current value of the slider
+    set(handles.textNum,'String',num2str(get(hObject,'Value')));
+    
+    imagesc(handles.image1{get(hObject,'Value')},'Parent',handles.axes1);
+    imagesc(handles.image2{get(hObject,'Value')},'Parent',handles.axes2);
+
+ end
+
+
+sliderValue=  get(hObject,'Value');
+assignin('base','sliderValue','sliderValue');
+
+set(handles.textNum,'String',num2str(sliderValue));
+%}
 
 
 % --- Executes during object creation, after setting all properties.
@@ -144,27 +173,37 @@ if isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColo
 end
 
 function respondToContSlideCallback(hObject, eventdata)
-    
-    % first we need the handles structure which we can get from hObject
+
     handles = guidata(hObject);
-
+    
+    
+    
+    
     newVal = floor(get(hObject,'Value'));
-
+    
+   
+ 
     % set the slider value to this integer which will be in the set {1,2,3,...,12,13}
     set(hObject,'Value',newVal);
-
+ 
+     % first we need the handles structure which we can get from hObject
+ 
+ 
     % now only do something in response to the slider movement if the 
     % new value is different from the last slider value
 
     if newVal ~= handles.lastSliderVal
-              
+         
+       
          % save the new value
          handles.lastSliderVal = newVal;
+         
 
          % display the current value of the slider
          set(handles.textNum,'String',num2str(get(hObject,'Value')));
          guidata(hObject,handles);
          
+
          imagesc(handles.image1(:,:,1,get(hObject,'Value')),'Parent',handles.axes1);
          imagesc(handles.image2(:,:,1,get(hObject,'Value')),'Parent',handles.axes2);
     end
