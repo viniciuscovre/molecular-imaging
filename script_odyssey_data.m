@@ -4,6 +4,12 @@ cd(folderName) %go to folder selected by the user
 count = 1;
 listingFolders = dir(folderName); %listing the directory in a struct
 
+if isunix
+    begin = 4;
+else
+    begin = 3;
+end
+
 % go from first folder in de directory to the last one alphabetically
 for i = 4 : size(listingFolders,1)
     
