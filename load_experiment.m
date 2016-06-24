@@ -38,7 +38,8 @@ else % If user opens a text file
     
     % Code for getting the type in the text file for each OS
     if isunix
-        type = information{1,2}{7,1}(1:end-1);
+        type=b{2,1};
+        %type = information{1,2}{7,1}(1:end-1);
     elseif ispc
         type=b{2,1};
         %type = char(information{1,2});
