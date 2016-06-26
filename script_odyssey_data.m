@@ -11,7 +11,7 @@ else
 end
 
 % go from first folder in de directory to the last one alphabetically
-for i = 4 : size(listingFolders,1)
+for i = begin : size(listingFolders,1)
     
     currentDir = strcat(folderName,'/',listingFolders(i,1).name);
     if(isdir(currentDir))
