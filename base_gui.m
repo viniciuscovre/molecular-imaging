@@ -22,7 +22,7 @@ function varargout = base_gui(varargin)
 
 % Edit the above text to modify the response to help base_gui
 
-% Last Modified by GUIDE v2.5 19-Jun-2016 17:00:02
+% Last Modified by GUIDE v2.5 27-Jun-2016 15:11:56
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -67,7 +67,7 @@ handles.output = hObject;
 guidata(hObject, handles);
 
 % UIWAIT makes base_gui wait for user response (see UIRESUME)
-% uiwait(handles.figure1);
+% uiwait(handles.base_gui);
 
 
 % --- Outputs from this function are returned to the command line.
