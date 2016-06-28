@@ -2,9 +2,11 @@
 
 
 [fname dname] = uigetfile({'*.txt;*.rtf','Text-Files (*.txt,*.rtf)';...
-    '*.mat','MAT-files (*.mat)';...
-    '*.czi','CSZ-Files (*.czi)'},...
+    '*.mat','MAT-Files (*.mat)';...
+    '*.czi','CSZ-Files (*.czi)';...
+    '*.avi','AVI-Files (*.avi)'},...
     'Select the Experiment File');
+%dname = uigetdir(':C','Select Folder With Files');
 
 file = fopen(fullfile(dname,fname));
 
@@ -20,6 +22,10 @@ if strcmp(lower(ftype),'.mat') % If user opens a .mat file
             [images700,images800,imagesWhite] = script_pearl_data(dname);
         case 'csz'
             % code for script_csz
+        case 'odissey'
+            [images700, images800,hasWhite,numberOfScans] = script_odyssey_data(dname);
+        case 'avi'
+            [images700, images800,hasWhite,numberOfScans] = script_avi_data(dname);
         otherwise
             h = msgbox('Invalid Type', 'Error','error');
             quit
