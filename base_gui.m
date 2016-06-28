@@ -88,18 +88,23 @@ function load_btn_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
     
     %run script to load the experiment data to program
-    load_experiment;
+    
+    uiwait(load_gui);
+    disp(getappdata(0,'MyStruct'));
+    % get the handle of load_gui
+    
+    gui_data=getappdata(0,'MyStruct');
     
     %inclue the output of load to handles to be available in all gui
-    handles.image1=images700;
-    handles.image2=images800;
-    if hasWhite
-        handles.imageWhite=imagesWhite;
+    handles.image1=gui_data.imgArray700;
+    handles.image2=gui_data.imgArray800;
+    if gui_data.hasWhite
+        handles.imageWhite=gui_data.imgArrayWhite;;
     end
     
     set(handles.image_slider, 'Min', 1);
-    set(handles.image_slider, 'Max', numberOfScans);
-    set(handles.image_slider, 'SliderStep', [1/(numberOfScans-1) , 1/(numberOfScans-1) ]);
+    set(handles.image_slider, 'Max', gui_data.numberOfScans);
+    set(handles.image_slider, 'SliderStep', [1/(gui_data.numberOfScans-1) , 1/(gui_data.numberOfScans-1) ]);
     set(handles.image_slider, 'Value', 1);
     
     % save the current/last slider value
