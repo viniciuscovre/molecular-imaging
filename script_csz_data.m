@@ -13,8 +13,8 @@ end
 cd(folderName) %go to folder selected by the user
 
 %get the information of the files inside the folder
-info700 = dir('*Bodipy*'); %Targeted Image
-info800 = dir('*TRITC*'); %Control Image
+info700 = dir('*TRITC*'); %Targeted Image
+info800 = dir('*Bodipy*'); %Control Image
 if hasWhite
     infoWhite = dir('*AF647*');
 end
