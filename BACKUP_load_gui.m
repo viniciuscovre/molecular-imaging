@@ -22,7 +22,7 @@ function varargout = load_gui(varargin)
 
 % Edit the above text to modify the response to help load_gui
 
-% Last Modified by GUIDE v2.5 29-Jun-2016 15:17:21
+% Last Modified by GUIDE v2.5 29-Jun-2016 11:12:17
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -88,29 +88,13 @@ handles.experimentType = contents{get(handles.dropdown,'Value')};
 
 switch handles.experimentType
     case 'Pearl'
-        set(handles.text1,'String','Prescan Image Folder');
-        set(handles.text2,'String','Experiment Folders');
-        set(handles.text3,'String','White Image');
-        set(handles.text4,'String','Targeted Channel Name');
-        set(handles.text4,'Visible','on');
-        set(handles.text5,'String','Control Channel Name');
-        set(handles.text5,'Visible','on');
-        set(handles.field1,'Visible','on');
-        set(handles.field2,'Visible','on');
-        set(handles.field3,'Visible','off');
-        set(handles.field4,'Visible','on');
-        set(handles.field5,'Visible','on');
-        set(handles.browse1,'Visible','on');
-        set(handles.browse2,'Visible','on');
-        set(handles.browse3,'Visible','off');
     case 'AVI'
-        set(handles.text1,'String','Targeted AVI File');
-        set(handles.text2,'String','Control AVI File');
-        
-        set(handles.text4,'Visible','off');
-        set(handles.text5,'Visible','off');
-        set(handles.field4,'Visible','off');
-        set(handles.field5,'Visible','off');
+        set(handles.textPrescanImage,'String','Targeted AVI File');
+        set(handles.textExperimentFolders,'String','Control AVI File');
+        value = get(handles.checkboxWhiteImagePearl, 'Value');
+        if value
+            
+        end
 end
 
 guidata(hObject, handles)
@@ -128,35 +112,28 @@ if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgr
 end
 
 
-% --- Executes on button press in checkboxWhiteImage.
-function checkboxWhiteImage_Callback(hObject, eventdata, handles)
-% hObject    handle to checkboxWhiteImage (see GCBO)
+% --- Executes on button press in checkboxWhiteImagePearl.
+function checkboxWhiteImagePearl_Callback(hObject, eventdata, handles)
+% hObject    handle to checkboxWhiteImagePearl (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-% Hint: get(hObject,'Value') returns toggle state of checkboxWhiteImage
-hasWhite= get(handles.checkboxWhiteImage,'Value');
-if hasWhite && strcmp(handles.experimentType,'AVI')
-    set(handles.field3,'Visible','on');
-    set(handles.browse3,'Visible','on');
-else
-    set(handles.field3,'Visible','off');
-    set(handles.browse3,'Visible','off');
-end
+% Hint: get(hObject,'Value') returns toggle state of checkboxWhiteImagePearl
 
 
-function field4_Callback(hObject, eventdata, handles)
-% hObject    handle to field4 (see GCBO)
+
+function fieldTarChannel_Callback(hObject, eventdata, handles)
+% hObject    handle to fieldTarChannel (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-% Hints: get(hObject,'String') returns contents of field4 as text
-%        str2double(get(hObject,'String')) returns contents of field4 as a double
+% Hints: get(hObject,'String') returns contents of fieldTarChannel as text
+%        str2double(get(hObject,'String')) returns contents of fieldTarChannel as a double
 
 
 % --- Executes during object creation, after setting all properties.
-function field4_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to field4 (see GCBO)
+function fieldTarChannel_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to fieldTarChannel (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    empty - handles not created until after all CreateFcns called
 
@@ -168,18 +145,18 @@ end
 
 
 
-function field5_Callback(hObject, eventdata, handles)
-% hObject    handle to field5 (see GCBO)
+function fieldControlChannel_Callback(hObject, eventdata, handles)
+% hObject    handle to fieldControlChannel (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-% Hints: get(hObject,'String') returns contents of field5 as text
-%        str2double(get(hObject,'String')) returns contents of field5 as a double
+% Hints: get(hObject,'String') returns contents of fieldControlChannel as text
+%        str2double(get(hObject,'String')) returns contents of fieldControlChannel as a double
 
 
 % --- Executes during object creation, after setting all properties.
-function field5_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to field5 (see GCBO)
+function fieldControlChannel_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to fieldControlChannel (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    empty - handles not created until after all CreateFcns called
 
@@ -197,21 +174,19 @@ function load_gui_btn_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 
 %read the values of the channels
-channel1 = get(handles.field4,'String');
-channel2 = get(handles.field5,'String');
+channel1 = get(handles.fieldTarChannel,'String');
+channel2 = get(handles.fieldControlChannel,'String');
 
 %See if has White image in the checkbox
-hasWhite= get(handles.checkboxWhiteImage,'Value');
+hasWhite= get(handles.checkboxWhiteImagePearl,'Value');
 x=hasWhite;
 disp(x);
 whos x;
 switch handles.experimentType
     case 'Pearl'
-        [imgArray700,imgArray800,imgArrayWhite,prescanImg700,prescanImg800,prescanImgWhite,hasWhite,numberOfScans]...
-            =script_pearl_data(handles.experimentFolders,handles.prescanFolder,channel1,channel2,hasWhite);
+        [imgArray700,imgArray800,imgArrayWhite,prescanImg700,prescanImg800,prescanImgWhite,hasWhite,numberOfScans]=script_pearl_data(handles.experimentFolders,handles.prescanFolder,channel1,channel2,hasWhite);
     case 'AVI'
-        [imgArray700,imgArray800,imgArrayWhite,prescanImg700,prescanImg800,prescanImgWhite,hasWhite,numberOfScans]...
-            =script_avi_data(handles.experimentFolders,handles.prescanFolder,handles.browseWhite,hasWhite);
+        [imgArray700,imgArray800,imgArrayWhite,prescanImg700,prescanImg800,prescanImgWhite,hasWhite,numberOfScans]=script_avi_data(handles.experimentFolders,handles.prescanFolder,channel1,channel2,hasWhite);
         
 end
 
@@ -244,9 +219,9 @@ close;
 
 
 
-% --- Executes on button press in browse1.
-function browse1_Callback(hObject, eventdata, handles)
-% hObject    handle to browse1 (see GCBO)
+% --- Executes on button press in browsePrescanImage.
+function browsePrescanImage_Callback(hObject, eventdata, handles)
+% hObject    handle to browsePrescanImage (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 %select folders with experiment data
@@ -256,15 +231,15 @@ prescanFolder=uigetfile_n_dir;
 handles.prescanFolder=prescanFolder;
 
 %show the path of folders in the static text
-set(handles.field1,'String',prescanFolder);
+set(handles.fieldPrescanImage,'String',prescanFolder);
 
 %save the new handles
 guidata(hObject,handles);
 
 
-% --- Executes on button press in browse2.
-function browse2_Callback(hObject, eventdata, handles)
-% hObject    handle to browse2 (see GCBO)
+% --- Executes on button press in browseExperimentFolders.
+function browseExperimentFolders_Callback(hObject, eventdata, handles)
+% hObject    handle to browseExperimentFolders (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
@@ -275,41 +250,31 @@ experimentFolders=uigetfile_n_dir;
 handles.experimentFolders=experimentFolders;
 
 %show the path of folders in the static text
-set(handles.field2,'String',experimentFolders);
+set(handles.fieldExperimentFolders,'String',experimentFolders);
 
 %save the new handles
 guidata(hObject,handles);
 
-% --- Executes on button press in browse3.
-function browse3_Callback(hObject, eventdata, handles)
-% hObject    handle to browse3 (see GCBO)
+
+
+
+
+
+
+
+
+function fieldTarAviFile_Callback(hObject, eventdata, handles)
+% hObject    handle to fieldTarAviFile (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-%select folders with experiment data
-browseWhite=uigetfile_n_dir;
-
-%insert folders in handles
-handles.browseWhite=browseWhite;
-
-%show the path of folders in the static text
-set(handles.field3,'String',browseWhite);
-
-%save the new handles
-guidata(hObject,handles);
-
-function field3_Callback(hObject, eventdata, handles)
-% hObject    handle to field3 (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-
-% Hints: get(hObject,'String') returns contents of field3 as text
-%        str2double(get(hObject,'String')) returns contents of field3 as a double
+% Hints: get(hObject,'String') returns contents of fieldTarAviFile as text
+%        str2double(get(hObject,'String')) returns contents of fieldTarAviFile as a double
 
 
 % --- Executes during object creation, after setting all properties.
-function field3_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to field3 (see GCBO)
+function fieldTarAviFile_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to fieldTarAviFile (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    empty - handles not created until after all CreateFcns called
 
@@ -318,3 +283,79 @@ function field3_CreateFcn(hObject, eventdata, handles)
 if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
     set(hObject,'BackgroundColor','white');
 end
+
+
+% --- Executes on button press in browseTarAviFile.
+function browseTarAviFile_Callback(hObject, eventdata, handles)
+% hObject    handle to browseTarAviFile (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+
+
+function fieldControlAviFile_Callback(hObject, eventdata, handles)
+% hObject    handle to fieldControlAviFile (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of fieldControlAviFile as text
+%        str2double(get(hObject,'String')) returns contents of fieldControlAviFile as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function fieldControlAviFile_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to fieldControlAviFile (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+% --- Executes on button press in browseControlAviFile.
+function browseControlAviFile_Callback(hObject, eventdata, handles)
+% hObject    handle to browseControlAviFile (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+
+% --- Executes on button press in checkboxWhiteImageAvi.
+function checkboxWhiteImageAvi_Callback(hObject, eventdata, handles)
+% hObject    handle to checkboxWhiteImageAvi (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hint: get(hObject,'Value') returns toggle state of checkboxWhiteImageAvi
+
+
+
+function fieldWhiteImageAvi_Callback(hObject, eventdata, handles)
+% hObject    handle to fieldWhiteImageAvi (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of fieldWhiteImageAvi as text
+%        str2double(get(hObject,'String')) returns contents of fieldWhiteImageAvi as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function fieldWhiteImageAvi_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to fieldWhiteImageAvi (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+% --- Executes on button press in pushbutton8.
+function pushbutton8_Callback(hObject, eventdata, handles)
+% hObject    handle to pushbutton8 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)

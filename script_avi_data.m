@@ -1,30 +1,31 @@
-function [imgArray700,imgArray800,imgArrayWhite,prescanImg700,prescanImg800,prescanImgWhite,hasWhite,numberOfScans] = script_avi_data(experimentFolders,prescanFolder,channel1,channel2,hasWhite)
+function [imgArray700,imgArray800,imgArrayWhite,prescanImg700,prescanImg800,prescanImgWhite,hasWhite,numberOfScans]...
+    = script_avi_data(prescan700, prescan800, prescanWhite, hasWhite)
 
-% if nargin < 1
-%     error('Insufficient Input Arguments');
-%     pause;
-% elseif nargin == 1
-%     hasWhite = true;
-% elseif nargin > 2
-%     error('Exceeded Number Of Input Arguments');
-%     pause;
-% end
-
-count = 1;
-
-%get the images from prescan
-cd(prescanFolder{1,1})
-prescan700= dir(strcat('*',channel1,'*'));
-prescan800= dir(strcat('*',channel2,'*'));
-if hasWhite
-    prescanWhite = dir('*ratio*');
-end
+% % if nargin < 1
+% %     error('Insufficient Input Arguments');
+% %     pause;
+% % elseif nargin == 1
+% %     hasWhite = true;
+% % elseif nargin > 2
+% %     error('Exceeded Number Of Input Arguments');
+% %     pause;
+% % end
+% 
+% % count = 1;
+% % 
+% % %get the images from prescan
+% % cd(prescanFolder{1,1})
+% % prescan700= dir(strcat('*',channel1,'*'));
+% % prescan800= dir(strcat('*',channel2,'*'));
+% % if hasWhite
+% %     prescanWhite = dir('*ratio*');
+% % end
 
 %get the data using Bio-Formats toolbox
-prescanData700 = bfopen(prescan700.name);
-prescanData800 = bfopen(prescan800.name);
+prescanData700 = bfopen(prescan700);
+prescanData800 = bfopen(prescan800);
 if hasWhite
-    prescanDataWhite = bfopen(prescanWhite.name);
+    prescanDataWhite = bfopen(prescanWhite);
 end
 
 [numOfScans,~] = size(data700{1,1});
