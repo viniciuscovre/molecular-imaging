@@ -27,11 +27,11 @@ function varargout = load_gui(varargin)
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
 gui_State = struct('gui_Name',       mfilename, ...
-    'gui_Singleton',  gui_Singleton, ...
-    'gui_OpeningFcn', @load_gui_OpeningFcn, ...
-    'gui_OutputFcn',  @load_gui_OutputFcn, ...
-    'gui_LayoutFcn',  [] , ...
-    'gui_Callback',   []);
+                   'gui_Singleton',  gui_Singleton, ...
+                   'gui_OpeningFcn', @load_gui_OpeningFcn, ...
+                   'gui_OutputFcn',  @load_gui_OutputFcn, ...
+                   'gui_LayoutFcn',  [] , ...
+                   'gui_Callback',   []);
 if nargin && ischar(varargin{1})
     gui_State.gui_Callback = str2func(varargin{1});
 end
@@ -63,7 +63,7 @@ guidata(hObject, handles);
 
 
 % --- Outputs from this function are returned to the command line.
-function varargout = load_gui_OutputFcn(hObject, eventdata, handles)
+function varargout = load_gui_OutputFcn(hObject, eventdata, handles) 
 % varargout  cell array for returning output args (see VARARGOUT);
 % hObject    handle to figure
 % eventdata  reserved - to be defined in a future version of MATLAB
@@ -158,7 +158,7 @@ function load_gui_btn_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 
 %read the value of the popup menu
-contents = get(handles.dropdown,'String');
+contents = get(handles.dropdown,'String'); 
 experimentType = contents{get(handles.dropdown,'Value')};
 
 %read the values of the channels
@@ -172,10 +172,7 @@ disp(x);
 whos x;
 switch experimentType
     case 'Pearl'
-        [imgArray700,imgArray800,imgArrayWhite,prescanImg700,prescanImg800,prescanImgWhite,hasWhite,numberOfScans]=script_pearl_data(handles.experimentFolders,handles.prescanFolder,channel1,channel2,hasWhite);
-    case 'AVI'
-        [imgArray700,imgArray800,imgArrayWhite,prescanImg700,prescanImg800,prescanImgWhite,hasWhite,numberOfScans]=script_avi_data(handles.experimentFolders,handles.prescanFolder,channel1,channel2,hasWhite);
-        
+        [imgArray700, imgArray800,imgArrayWhite,prescanImg700,prescanImg800,prescanImgWhite,hasWhite,numberOfScans]=script_pearl_data(handles.experimentFolders,handles.prescanFolder,channel1,channel2,hasWhite);        
 end
 
 handles.imgArray700=imgArray700;
@@ -195,7 +192,7 @@ guidata(hObject,handles);
 myStruct=guidata(hObject);
 
 %0 for root | 'MyStruct' the name for the root to get | myStruct the variable that is givent to 'myStruct'
-setappdata(0,'MyStruct',myStruct);
+setappdata(0,'MyStruct',myStruct); 
 
 close;
 
@@ -220,7 +217,7 @@ handles.prescanFolder=prescanFolder;
 
 %show the path of folders in the static text
 set(handles.text8,'String',prescanFolder);
-
+ 
 %save the new handles
 guidata(hObject,handles);
 
@@ -239,7 +236,7 @@ handles.experimentFolders=experimentFolders;
 
 %show the path of folders in the static text
 set(handles.text9,'String',experimentFolders);
-
+ 
 %save the new handles
 guidata(hObject,handles);
 
