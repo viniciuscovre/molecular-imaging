@@ -137,7 +137,7 @@ function checkboxWhiteImage_Callback(hObject, eventdata, handles)
 
 % Hint: get(hObject,'Value') returns toggle state of checkboxWhiteImage
 hasWhite= get(handles.checkboxWhiteImage,'Value');
-if hasWhite && strcmp(handles.experimentType,'AVI')
+if hasWhite && strcmp(handles.dropdown,'AVI')
     set(handles.field3,'Visible','on');
     set(handles.browse3,'Visible','on');
 else
@@ -202,9 +202,14 @@ channel1 = get(handles.field4,'String');
 channel2 = get(handles.field5,'String');
 
 %See if has White image in the checkbox
-hasWhite= get(handles.white_checkbox,'Value');
+hasWhite= get(handles.checkboxWhiteImage,'Value');
 
-switch experimentType
+
+contents = get(handles.dropdown,'String');
+handles.experimentType = contents{get(handles.dropdown,'Value')}
+
+
+switch handles.experimentType
     case 'Pearl'
         if hasWhite
             [imgArray700,imgArray800,imgArrayWhite,prescanImg700,prescanImg800,prescanImgWhite,hasWhite,numberOfScans]=script_pearl_data(handles.experimentFolders,handles.prescanFolder,channel1,channel2,hasWhite);
