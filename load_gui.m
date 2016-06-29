@@ -191,7 +191,8 @@ guidata(hObject,handles);
 
 myStruct=guidata(hObject);
 
-setappdata(0,'MyStruct',myStruct);
+%0 for root | 'MyStruct' the name for the root to get | myStruct the variable that is givent to 'myStruct'
+setappdata(0,'MyStruct',myStruct); 
 
 close;
 
