@@ -14,7 +14,12 @@ function [imgArray700,imgArray800,imgArrayWhite,prescanImg700,prescanImg800,pres
 %
 %   LOAD_PEARL_SERIES(DIR)
 
-
+switch nargout
+    case 5
+        
+    case 4
+        
+end
 
 count=1;
 
@@ -69,12 +74,6 @@ for i= 1:length(experimentFolders)
     
 end
 numberOfScans=count-1;
-
-    if ~hasWhite
-        imgArrayWhite=0;
-        prescanImgWhite=0;
-    end
-
 
 %{
 cd(folderName) %go to folder selected by the user

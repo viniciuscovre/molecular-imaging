@@ -173,27 +173,23 @@ hasWhite= get(handles.white_checkbox,'Value');
 
 switch experimentType
     case 'Pearl'
-        if hasWhite
-            [imgArray700,imgArray800,imgArrayWhite,prescanImg700,prescanImg800,prescanImgWhite,hasWhite,numberOfScans]=script_pearl_data(handles.experimentFolders,handles.prescanFolder,channel1,channel2,hasWhite);
-        else
-            [imgArray700,imgArray800,imgArrayWhite,prescanImg700,prescanImg800,prescanImgWhite,hasWhite,numberOfScans]=script_pearl_data(handles.experimentFolders,handles.prescanFolder,channel1,channel2,hasWhite);
-        end
-            pearlHandles= struct([]);
-            pearlHandles(1).type= 'Pearl';
-            pearlHandles.imgArray700=imgArray700;
-            pearlHandles.imgArray800=imgArray800;
-            pearlHandles.imgArrayWhite=imgArrayWhite;
-            pearlHandles.prescanImg700=prescanImg700;
-            pearlHandles.prescanImg800=prescanImg800;
-            pearlHandles.prescanImgWhite=prescanImgWhite;
-            pearlHandles.hasWhite=hasWhite;
-            pearlHandles.numberOfScans=numberOfScans;
-
-            myStruct=pearlHandles;
-
+        [imgArray700,imgArray800,imgArrayWhite,prescanImg700,prescanImg800,prescanImgWhite,hasWhite,numberOfScans]=script_pearl_data(handles.experimentFolders,handles.prescanFolder,channel1,channel2,hasWhite);
+        pearlHandles= struct([]);
+        pearlHandles(1).type= 'Pearl';
+        pearlHandles.imgArray700=imgArray700;
+        pearlHandles.imgArray800=imgArray800;
+        pearlHandles.imgArrayWhite=imgArrayWhite;
+        pearlHandles.prescanImg700=prescanImg700;
+        pearlHandles.prescanImg800=prescanImg800;
+        pearlHandles.prescanImgWhite=prescanImgWhite;
+        pearlHandles.hasWhite=hasWhite;
+        pearlHandles.numberOfScans=numberOfScans;
+        
+        myStruct=pearlHandles;
+        
         
     case 'AVI'
-            [imgArray700,imgArray800,imgArrayWhite,prescanImg700,prescanImg800,prescanImgWhite,hasWhite,numberOfScans]=script_avi_data(handles.experimentFolders,handles.prescanFolder,channel1,channel2,hasWhite);
+        [imgArray700,imgArray800,imgArrayWhite,prescanImg700,prescanImg800,prescanImgWhite,hasWhite,numberOfScans]=script_avi_data(handles.experimentFolders,handles.prescanFolder,channel1,channel2,hasWhite);
     case 'Odyssey'
         [imgArray700,imgArray800,imgArrayWhite,prescanImg700,prescanImg800,prescanImgWhite,hasWhite,numberOfScans] = script_odyssey_data(handles.experimentFolders,handles.prescanFolder,channel1,channel2,hasWhite);
         
