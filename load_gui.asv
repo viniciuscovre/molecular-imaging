@@ -22,7 +22,7 @@ function varargout = load_gui(varargin)
 
 % Edit the above text to modify the response to help load_gui
 
-% Last Modified by GUIDE v2.5 29-Jun-2016 15:17:21
+% Last Modified by GUIDE v2.5 29-Jun-2016 09:36:55
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -81,40 +81,10 @@ function dropdown_Callback(hObject, eventdata, handles)
 
 % Hints: contents = cellstr(get(hObject,'String')) returns dropdown contents as cell array
 %        contents{get(hObject,'Value')} returns selected item from dropdown
-handles = guidata(hObject);
 %read the value of the popup menu
 
-contents = get(handles.dropdown,'String');
-handles.experimentType = contents{get(handles.dropdown,'Value')};
 
-switch handles.experimentType
-    case 'Pearl'
-        set(handles.text1,'String','Prescan Image Folder');
-        set(handles.text2,'String','Experiment Folders');
-        set(handles.text3,'String','White Image');
-        set(handles.text4,'String','Targeted Channel Name');
-        set(handles.text4,'Visible','on');
-        set(handles.text5,'String','Control Channel Name');
-        set(handles.text5,'Visible','on');
-        set(handles.field1,'Visible','on');
-        set(handles.field2,'Visible','on');
-        set(handles.field3,'Visible','off');
-        set(handles.field4,'Visible','on');
-        set(handles.field5,'Visible','on');
-        set(handles.browse1,'Visible','on');
-        set(handles.browse2,'Visible','on');
-        set(handles.browse3,'Visible','off');
-    case 'AVI'
-        set(handles.text1,'String','Targeted AVI File');
-        set(handles.text2,'String','Control AVI File');
-        
-        set(handles.text4,'Visible','off');
-        set(handles.text5,'Visible','off');
-        set(handles.field4,'Visible','off');
-        set(handles.field5,'Visible','off');
-end
 
-guidata(hObject, handles)
 
 % --- Executes during object creation, after setting all properties.
 function dropdown_CreateFcn(hObject, eventdata, handles)
@@ -129,35 +99,28 @@ if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgr
 end
 
 
-% --- Executes on button press in checkboxWhiteImage.
-function checkboxWhiteImage_Callback(hObject, eventdata, handles)
-% hObject    handle to checkboxWhiteImage (see GCBO)
+% --- Executes on button press in white_checkbox.
+function white_checkbox_Callback(hObject, eventdata, handles)
+% hObject    handle to white_checkbox (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-% Hint: get(hObject,'Value') returns toggle state of checkboxWhiteImage
-hasWhite= get(handles.checkboxWhiteImage,'Value');
-if hasWhite && strcmp(handles.experimentType,'AVI')
-    set(handles.field3,'Visible','on');
-    set(handles.browse3,'Visible','on');
-else
-    set(handles.field3,'Visible','off');
-    set(handles.browse3,'Visible','off');
-end
+% Hint: get(hObject,'Value') returns toggle state of white_checkbox
 
 
-function field4_Callback(hObject, eventdata, handles)
-% hObject    handle to field4 (see GCBO)
+
+function channel1_Callback(hObject, eventdata, handles)
+% hObject    handle to channel1 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-% Hints: get(hObject,'String') returns contents of field4 as text
-%        str2double(get(hObject,'String')) returns contents of field4 as a double
+% Hints: get(hObject,'String') returns contents of channel1 as text
+%        str2double(get(hObject,'String')) returns contents of channel1 as a double
 
 
 % --- Executes during object creation, after setting all properties.
-function field4_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to field4 (see GCBO)
+function channel1_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to channel1 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    empty - handles not created until after all CreateFcns called
 
@@ -169,18 +132,18 @@ end
 
 
 
-function field5_Callback(hObject, eventdata, handles)
-% hObject    handle to field5 (see GCBO)
+function channel2_Callback(hObject, eventdata, handles)
+% hObject    handle to channel2 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-% Hints: get(hObject,'String') returns contents of field5 as text
-%        str2double(get(hObject,'String')) returns contents of field5 as a double
+% Hints: get(hObject,'String') returns contents of channel2 as text
+%        str2double(get(hObject,'String')) returns contents of channel2 as a double
 
 
 % --- Executes during object creation, after setting all properties.
-function field5_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to field5 (see GCBO)
+function channel2_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to channel2 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    empty - handles not created until after all CreateFcns called
 
@@ -197,40 +160,38 @@ function load_gui_btn_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
+%read the value of the popup menu
+contents = get(handles.dropdown,'String');
+experimentType = contents{get(handles.dropdown,'Value')};
+
 %read the values of the channels
-channel1 = get(handles.field4,'String');
-channel2 = get(handles.field5,'String');
+channel1 = get(handles.channel1,'String');
+channel2 = get(handles.channel2,'String');
 
 %See if has White image in the checkbox
 hasWhite= get(handles.white_checkbox,'Value');
 
 switch experimentType
     case 'Pearl'
-        if hasWhite
-            [imgArray700,imgArray800,imgArrayWhite,prescanImg700,prescanImg800,prescanImgWhite,hasWhite,numberOfScans]=script_pearl_data(handles.experimentFolders,handles.prescanFolder,channel1,channel2,hasWhite);
-        else
-            [imgArray700,imgArray800,imgArrayWhite,prescanImg700,prescanImg800,prescanImgWhite,hasWhite,numberOfScans]=script_pearl_data(handles.experimentFolders,handles.prescanFolder,channel1,channel2,hasWhite);
-        end
-            pearlHandles= struct([]);
-            pearlHandles(1).type= 'Pearl';
-            pearlHandles.imgArray700=imgArray700;
-            pearlHandles.imgArray800=imgArray800;
-            pearlHandles.imgArrayWhite=imgArrayWhite;
-            pearlHandles.prescanImg700=prescanImg700;
-            pearlHandles.prescanImg800=prescanImg800;
-            pearlHandles.prescanImgWhite=prescanImgWhite;
-            pearlHandles.hasWhite=hasWhite;
-            pearlHandles.numberOfScans=numberOfScans;
-
-            myStruct=pearlHandles;
-
+        [imgArray700,imgArray800,imgArrayWhite,prescanImg700,prescanImg800,prescanImgWhite,hasWhite,numberOfScans]=script_pearl_data(handles.experimentFolders,handles.prescanFolder,channel1,channel2,hasWhite);
+        pearlHandles= struct([]);
+        pearlHandles(1).type= 'Pearl';
+        pearlHandles.imgArray700=imgArray700;
+        pearlHandles.imgArray800=imgArray800;
+        pearlHandles.imgArrayWhite=imgArrayWhite;
+        pearlHandles.prescanImg700=prescanImg700;
+        pearlHandles.prescanImg800=prescanImg800;
+        pearlHandles.prescanImgWhite=prescanImgWhite;
+        pearlHandles.hasWhite=hasWhite;
+        pearlHandles.numberOfScans=numberOfScans;
+        
+        myStruct=pearlHandles;
+        
         
     case 'AVI'
-        [imgArray700,imgArray800,imgArrayWhite,prescanImg700,prescanImg800,prescanImgWhite,hasWhite,numberOfScans]...
-            =script_avi_data(handles.experimentFolders,handles.prescanFolder,handles.browseWhite,hasWhite);
+        [imgArray700,imgArray800,imgArrayWhite,prescanImg700,prescanImg800,prescanImgWhite,hasWhite,numberOfScans]=script_avi_data(handles.experimentFolders,handles.prescanFolder,channel1,channel2,hasWhite);
     case 'Odyssey'
-        [imgArray700,imgArray800,imgArrayWhite,prescanImg700,prescanImg800,prescanImgWhite,hasWhite,numberOfScans]...
-            =script_odyssey_data(handles.experimentFolders,handles.prescanFolder,channel1,channel2,hasWhite);
+        [imgArray700,imgArray800,imgArrayWhite,prescanImg700,prescanImg800,prescanImgWhite,hasWhite,numberOfScans] = script_odyssey_data(handles.experimentFolders,handles.prescanFolder,channel1,channel2,hasWhite);
         
         odysseyHandles= struct([]);
         odysseyHandles(1).type= 'Pearl';
@@ -244,6 +205,7 @@ switch experimentType
         odysseyHandles.numberOfScans=numberOfScans;
         
         myStruct=odysseyHandles;
+        
 end
 
 
@@ -262,9 +224,9 @@ close;
 
 
 
-% --- Executes on button press in browse1.
-function browse1_Callback(hObject, eventdata, handles)
-% hObject    handle to browse1 (see GCBO)
+% --- Executes on button press in browse_prescan.
+function browse_prescan_Callback(hObject, eventdata, handles)
+% hObject    handle to browse_prescan (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 %select folders with experiment data
@@ -274,15 +236,15 @@ prescanFolder=uigetfile_n_dir;
 handles.prescanFolder=prescanFolder;
 
 %show the path of folders in the static text
-set(handles.field1,'String',prescanFolder);
+set(handles.text8,'String',prescanFolder);
 
 %save the new handles
 guidata(hObject,handles);
 
 
-% --- Executes on button press in browse2.
-function browse2_Callback(hObject, eventdata, handles)
-% hObject    handle to browse2 (see GCBO)
+% --- Executes on button press in browse_folders.
+function browse_folders_Callback(hObject, eventdata, handles)
+% hObject    handle to browse_folders (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
@@ -293,43 +255,15 @@ experimentFolders=uigetfile_n_dir;
 handles.experimentFolders=experimentFolders;
 
 %show the path of folders in the static text
-set(handles.field2,'String',experimentFolders);
+set(handles.text9,'String',experimentFolders);
 
 %save the new handles
 guidata(hObject,handles);
 
-% --- Executes on button press in browse3.
-function browse3_Callback(hObject, eventdata, handles)
-% hObject    handle to browse3 (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-
-%select folders with experiment data
-browseWhite=uigetfile_n_dir;
-
-%insert folders in handles
-handles.browseWhite=browseWhite;
-
-%show the path of folders in the static text
-set(handles.field3,'String',browseWhite);
-
-%save the new handles
-guidata(hObject,handles);
-
-function field3_Callback(hObject, eventdata, handles)
-% hObject    handle to field3 (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-
-% Hints: get(hObject,'String') returns contents of field3 as text
-%        str2double(get(hObject,'String')) returns contents of field3 as a double
 
 
-% --- Executes during object creation, after setting all properties.
-function field3_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to field3 (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    empty - handles not created until after all CreateFcns called
+
+
 
 
 

@@ -98,6 +98,7 @@ function load_btn_Callback(hObject, eventdata, handles)
     %inclue the output of load to handles to be available in all gui
     handles.image1=gui_data.imgArray700;
     handles.image2=gui_data.imgArray800;
+    handles.guiData=gui_data;
     if gui_data.hasWhite
         handles.imageWhite=gui_data.imgArrayWhite;;
     end
@@ -114,6 +115,12 @@ function load_btn_Callback(hObject, eventdata, handles)
     % show images in the axes of GUI
     imagesc(handles.image1(:,:,1,get(hObject,'Value')),'Parent',handles.axes1);
     imagesc(handles.image2(:,:,1,get(hObject,'Value')),'Parent',handles.axes2);
+    if gui_data.hasWhite
+        imagesc(gui_data.imgArrayWhite(:,:,1,get(hObject,'Value')),'Parent',handles.axes3);
+    end
+        imagesc(gui_data.prescanImg700,'Parent',handles.axes4);
+
+    
     
     %save the new handles
     guidata(hObject,handles);
@@ -172,5 +179,8 @@ function respondToContSlideCallback(hObject, eventdata)
          
          imagesc(handles.image1(:,:,1,get(hObject,'Value')),'Parent',handles.axes1);
          imagesc(handles.image2(:,:,1,get(hObject,'Value')),'Parent',handles.axes2);
+         if (handles.guiData.hasWhite)
+            imagesc(handles.guiData.imgArrayWhite(:,:,1,get(hObject,'Value')),'Parent',handles.axes3);
+         end
     end
     
