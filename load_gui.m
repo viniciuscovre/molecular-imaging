@@ -167,7 +167,9 @@ channel2 = get(handles.channel2,'String');
 
 %See if has White image in the checkbox
 hasWhite= get(handles.white_checkbox,'Value');
-
+x=hasWhite;
+disp(x);
+whos x;
 switch experimentType
     case 'Pearl'
         [imgArray700, imgArray800, imgArrayWhite,prescanImg700,prescanImg800,prescanImgWhite,hasWhite,numberOfScans]=script_pearl_data(handles.experimentFolders,handles.prescanFolder,channel1,channel2,hasWhite);        
