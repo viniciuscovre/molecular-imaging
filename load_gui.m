@@ -137,7 +137,11 @@ function checkboxWhiteImage_Callback(hObject, eventdata, handles)
 
 % Hint: get(hObject,'Value') returns toggle state of checkboxWhiteImage
 hasWhite= get(handles.checkboxWhiteImage,'Value');
-if hasWhite && strcmp(handles.dropdown,'AVI')
+
+contents = get(handles.dropdown,'String');
+handles.experimentType = contents{get(handles.dropdown,'Value')}
+
+if hasWhite && strcmp(handles.experimentType,'AVI')
     set(handles.field3,'Visible','on');
     set(handles.browse3,'Visible','on');
 else
