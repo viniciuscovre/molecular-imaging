@@ -100,7 +100,7 @@ function load_btn_Callback(hObject, eventdata, handles)
     handles.image2=gui_data.imgArray800;
     handles.guiData=gui_data;
     if gui_data.hasWhite
-        handles.imageWhite=gui_data.imgArrayWhite;;
+        handles.imageWhite=gui_data.imgArrayWhite;
     end
     
     set(handles.image_slider, 'Min', 1);
