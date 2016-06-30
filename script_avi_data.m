@@ -22,10 +22,10 @@ function [imgArray700,imgArray800,imgArrayWhite,prescanImg700,prescanImg800,pres
 % % end
 
 %get the data using Bio-Formats toolbox
-prescanData700 = bfopen(prescan700);
-prescanData800 = bfopen(prescan800);
+prescanData700 = bfopen(prescan700{1,1});
+prescanData800 = bfopen(prescan800{1,1});
 if hasWhite
-    prescanDataWhite = bfopen(prescanWhite);
+    prescanDataWhite = bfopen(prescanWhite{1,1});
 end
 
 [numOfScans,~] = size(data700{1,1});
