@@ -136,7 +136,7 @@ function checkboxWhiteImage_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 
 % Hint: get(hObject,'Value') returns toggle state of checkboxWhiteImage
-hasWhite= get(handles.checkboxWhiteImage,'Value');
+hasWhite=get(handles.checkboxWhiteImage,'Value');
 if hasWhite && strcmp(handles.dropdown,'AVI')
     set(handles.field3,'Visible','on');
     set(handles.browse3,'Visible','on');
