@@ -250,6 +250,21 @@ switch handles.experimentType
     case 'AVI'
         [imgArray700,imgArray800,imgArrayWhite,prescanImg700,prescanImg800,prescanImgWhite,hasWhite,numberOfScans]...
             =script_avi_data(handles.experimentFolders,handles.prescanFolder,handles.browseWhite,hasWhite);
+        
+        aviHandles= struct([]);
+        aviHandles(1).type= 'avi';
+        aviHandles.imgArray700=imgArray700;
+        aviHandles.imgArray800=imgArray800;
+        aviHandles.imgArrayWhite=imgArrayWhite;
+        aviHandles.prescanImg700=prescanImg700;
+        aviHandles.prescanImg800=prescanImg800;
+        aviHandles.prescanImgWhite=prescanImgWhite;
+        aviHandles.hasWhite=hasWhite;
+        aviHandles.numberOfScans=numberOfScans;
+        
+        myStruct=aviHandles;
+        
+        
     case 'Odyssey'
         [imgArray700,imgArray800,imgArrayWhite,prescanImg700,prescanImg800,prescanImgWhite,hasWhite,numberOfScans]...
             =script_odyssey_data(handles.experimentFolders,handles.prescanFolder,channel1,channel2,hasWhite);
