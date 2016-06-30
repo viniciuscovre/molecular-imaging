@@ -84,9 +84,13 @@ function dropdown_Callback(hObject, eventdata, handles)
 handles = guidata(hObject);
 %read the value of the popup menu
 
+%gets the value of popup menu every time it changes
 contents = get(handles.dropdown,'String');
 handles.experimentType = contents{get(handles.dropdown,'Value')};
 
+
+%switch case to check the type of experiment and change the input options
+%according to type
 switch handles.experimentType
     case 'Pearl'
         set(handles.text1,'String','Prescan Image Folder');
@@ -114,6 +118,7 @@ switch handles.experimentType
         set(handles.field5,'Visible','off');
 end
 
+%save handles
 guidata(hObject, handles)
 
 % --- Executes during object creation, after setting all properties.
@@ -136,8 +141,17 @@ function checkboxWhiteImage_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 
 % Hint: get(hObject,'Value') returns toggle state of checkboxWhiteImage
-hasWhite=get(handles.checkboxWhiteImage,'Value');
-if hasWhite && strcmp(handles.dropdown,'AVI')
+
+%get the actual value of the checkbox 
+hasWhite= get(handles.checkboxWhiteImage,'Value');
+
+%gets the value of popup menu selected right now
+contents = get(handles.dropdown,'String');
+handles.experimentType = contents{get(handles.dropdown,'Value')};
+
+%check if the checkbox is active and if the AVI is selected in popup menu
+%and shows the proper input fields for AVI
+if hasWhite && strcmp(handles.experimentType,'AVI')
     set(handles.field3,'Visible','on');
     set(handles.browse3,'Visible','on');
 else
@@ -204,18 +218,21 @@ channel2 = get(handles.field5,'String');
 %See if has White image in the checkbox
 hasWhite= get(handles.checkboxWhiteImage,'Value');
 
-
+%gets the value of popup menu selected right now
 contents = get(handles.dropdown,'String');
-handles.experimentType = contents{get(handles.dropdown,'Value')}
+handles.experimentType = contents{get(handles.dropdown,'Value')};
 
-
+%execute the right loading code depending on the popup menu
 switch handles.experimentType
     case 'Pearl'
+        %execute the script based on if have WHITE image or not
         if hasWhite
             [imgArray700,imgArray800,imgArrayWhite,prescanImg700,prescanImg800,prescanImgWhite,hasWhite,numberOfScans]=script_pearl_data(handles.experimentFolders,handles.prescanFolder,channel1,channel2,hasWhite);
         else
             [imgArray700,imgArray800,imgArrayWhite,prescanImg700,prescanImg800,prescanImgWhite,hasWhite,numberOfScans]=script_pearl_data(handles.experimentFolders,handles.prescanFolder,channel1,channel2,hasWhite);
         end
+            %creates a struct to save all the data returned from the load
+            %script
             pearlHandles= struct([]);
             pearlHandles(1).type= 'Pearl';
             pearlHandles.imgArray700=imgArray700;
@@ -257,6 +274,7 @@ end
 %0 for root | 'MyStruct' the name for the root to get | myStruct the variable that is givent to 'myStruct'
 setappdata(0,'MyStruct',myStruct);
 
+%close the load_gui
 close;
 
 
