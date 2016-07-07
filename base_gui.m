@@ -22,7 +22,7 @@ function varargout = base_gui(varargin)
 
 % Edit the above text to modify the response to help base_gui
 
-% Last Modified by GUIDE v2.5 07-Jul-2016 00:04:06
+% Last Modified by GUIDE v2.5 07-Jul-2016 19:24:09
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -110,15 +110,7 @@ function load_btn_Callback(hObject, eventdata, handles)
     experimentHandles=getappdata(0,'experimentHandles');
     
     
-    
-    %inclue the output of load to handles to be available in all gui
-%     handles.image1=gui_data.imgArray700;
-%     handles.image2=gui_data.imgArray800;
-%     handles.guiData=gui_data;
-%     if gui_data.hasWhite
-%         handles.imageWhite=gui_data.imgArrayWhite;
-%     end
-%     
+  
     set(handles.image_slider, 'Min', 1);
     set(handles.image_slider, 'Max', experimentHandles.numberOfScans);
     set(handles.image_slider, 'SliderStep', [1/(experimentHandles.numberOfScans-1) , 1/(experimentHandles.numberOfScans-1) ]);
@@ -129,14 +121,14 @@ function load_btn_Callback(hObject, eventdata, handles)
     set(handles.textNum,'String',num2str(get(handles.image_slider,'Value')));
     
     % show images in the axes of GUI
-    imagesc(experimentHandles.target(:,:,1,get(hObject,'Value')),'Parent',handles.axes1);
-    imagesc(experimentHandles.control(:,:,1,get(hObject,'Value')),'Parent',handles.axes2);
-    if experimentHandles.hasWhite
-        imagesc(experimentHandles.white(:,:,1,get(hObject,'Value')),'Parent',handles.axes3);
-    end
-        imagesc(experimentHandles.prescanTarget,'Parent',handles.axes4);
+%     imagesc(experimentHandles.target(:,:,1,get(hObject,'Value')),'Parent',handles.targetAxes);
+%     imagesc(experimentHandles.control(:,:,1,get(hObject,'Value')),'Parent',handles.controlAxes);
+%     if experimentHandles.hasWhite
+%         imagesc(experimentHandles.white(:,:,1,get(hObject,'Value')),'Parent',handles.whiteAxes);
+%     end
+%         imagesc(experimentHandles.prescanTarget,'Parent',handles.prescanAxes);
 
-    
+    plot_images;
     
     %save the new handles
     guidata(hObject,handles);
@@ -196,11 +188,7 @@ function respondToContSlideCallback(hObject, eventdata)
          set(handles.textNum,'String',num2str(get(hObject,'Value')));
          guidata(hObject,handles);
          
-         imagesc(experimentHandles.target(:,:,1,get(hObject,'Value')),'Parent',handles.axes1);
-         imagesc(experimentHandles.control(:,:,1,get(hObject,'Value')),'Parent',handles.axes2);
-         if experimentHandles.hasWhite
-            imagesc(experimentHandles.white(:,:,1,get(hObject,'Value')),'Parent',handles.axes3);
-         end
+         plot_images;
     end
     
 

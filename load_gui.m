@@ -253,17 +253,17 @@ switch handles.experimentType
         [imgArray700,imgArray800,imgArrayWhite,prescanImg700,prescanImg800,prescanImgWhite,hasWhite,numberOfScans]...
             =script_avi_data(handles.experimentFolders,handles.prescanFolder,handles.browseWhite,hasWhite);
         
-        aviHandles= struct([]);
-        aviHandles(1).type= 'avi';
-        aviHandles.imgArray700=imgArray700;
-        aviHandles.imgArray800=imgArray800;
-        aviHandles.imgArrayWhite=imgArrayWhite;
-        aviHandles.prescanImg700=prescanImg700;
-        aviHandles.prescanImg800=prescanImg800;
-        aviHandles.prescanImgWhite=prescanImgWhite;
-        aviHandles.hasWhite=hasWhite;
-        aviHandles.numberOfScans=numberOfScans;
         
+        experimentHandles(1).type= 'avi';
+        experimentHandles.target=imgArray700;
+        experimentHandles.control=imgArray800;
+        experimentHandles.white=imgArrayWhite;
+        experimentHandles.prescanTarget=prescanImg700;
+        experimentHandles.prescanControl=prescanImg800;
+        experimentHandles.prescanWhite=prescanImgWhite;
+        experimentHandles.hasWhite=hasWhite;
+        experimentHandles.numberOfScans=numberOfScans;
+
         
         
         
@@ -271,17 +271,16 @@ switch handles.experimentType
         [imgArray700,imgArray800,imgArrayWhite,prescanImg700,prescanImg800,prescanImgWhite,hasWhite,numberOfScans]...
             =script_odyssey_data(handles.experimentFolders,handles.prescanFolder,channel1,channel2,hasWhite);
         
-        odysseyHandles= struct([]);
-        odysseyHandles(1).type= 'Pearl';
-        odysseyHandles.imgArray700=imgArray700;
-        odysseyHandles.imgArray800=imgArray800;
-        odysseyHandles.imgArrayWhite=imgArrayWhite;
-        odysseyHandles.prescanImg700=prescanImg700;
-        odysseyHandles.prescanImg800=prescanImg800;
-        odysseyHandles.prescanImgWhite=prescanImgWhite;
-        odysseyHandles.hasWhite=hasWhite;
-        odysseyHandles.numberOfScans=numberOfScans;
-        
+         
+        experimentHandles(1).type= 'Odyssey';
+        experimentHandles.target=imgArray700;
+        experimentHandles.control=imgArray800;
+        experimentHandles.white=imgArrayWhite;
+        experimentHandles.prescanTarget=prescanImg700;
+        experimentHandles.prescanControl=prescanImg800;
+        experimentHandles.prescanWhite=prescanImgWhite;
+        experimentHandles.hasWhite=hasWhite;
+        experimentHandles.numberOfScans=numberOfScans;
         
 end
 
