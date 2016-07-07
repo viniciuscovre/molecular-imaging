@@ -76,68 +76,7 @@ numberOfScans=count-1;
     end
 
 
-%{
-cd(folderName) %go to folder selected by the user
-count = 1;
-listingFolders = dir(folderName); %listing the directory in a struct
 
-if isunix
-    begin = 4;
-else
-    begin = 3;
-end
-
-% go from first folder in de directory to the last one alphabetically
-for i = begin : size(listingFolders,1)
-    
-    currentDir = strcat(folderName,'/',listingFolders(i,1).name);
-    if(isdir(currentDir))
-        
-        cd(currentDir)
-        
-        %get the information of the files inside the folder
-        info700 = dir('*700*');
-        info800 = dir('*800*');
-        infoWhite = dir('*White*');
-        acquisition= dir('*acq*');
-        
-        %get the data using Bio-Formats toolbox
-        data700 = bfopen(info700.name);
-        data800 = bfopen(info800.name);
-        dataWhite = bfopen(infoWhite.name);
-        acq= fopen(acquisition.name);
-        
-        %get the image by itself (image matrix)
-        imgArray700(:,:,1,count) = data700{1,1}{1,1};
-        imgArray800(:,:,1,count) = data800{1,1}{1,1};
-        imgArrayWhite(:,:,1,count) = dataWhite{1,1}{1,1};
-        
-        %creates the array of images
-        
-        
-        tline = fgets(acq);
-        while ischar(tline)
-            if ~isempty(strfind(tline,'TimeStamp'))
-                a=textscan(tline,'%s','delimiter','=');
-                b=a{1,1};
-                textData(count).timestamp= b{2,1};
-            end
-            tline = fgets(acq);
-        end
-
-        fclose(acq);
-        
-        %textData{count}=acq;
-        
-        count = count+1;
-    end
-    
-end
-numberOfScans=count-1;
-hasWhite=true;
-
-
-%}
 
 end
 
