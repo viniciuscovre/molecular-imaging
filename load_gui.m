@@ -211,6 +211,9 @@ function load_gui_btn_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
+%retrieves the struct of experiment data
+experimentHandles=getappdata(0,'experimentHandles');
+
 %read the values of the channels
 channel1 = get(handles.field4,'String');
 channel2 = get(handles.field5,'String');
@@ -233,18 +236,17 @@ switch handles.experimentType
         end
             %creates a struct to save all the data returned from the load
             %script
-            pearlHandles= struct([]);
-            pearlHandles(1).type= 'Pearl';
-            pearlHandles.imgArray700=imgArray700;
-            pearlHandles.imgArray800=imgArray800;
-            pearlHandles.imgArrayWhite=imgArrayWhite;
-            pearlHandles.prescanImg700=prescanImg700;
-            pearlHandles.prescanImg800=prescanImg800;
-            pearlHandles.prescanImgWhite=prescanImgWhite;
-            pearlHandles.hasWhite=hasWhite;
-            pearlHandles.numberOfScans=numberOfScans;
+            experimentHandles(1).type= 'Pearl';
+            experimentHandles.target=imgArray700;
+            experimentHandles.control=imgArray800;
+            experimentHandles.white=imgArrayWhite;
+            experimentHandles.prescanTarget=prescanImg700;
+            experimentHandles.prescanControl=prescanImg800;
+            experimentHandles.prescanWhite=prescanImgWhite;
+            experimentHandles.hasWhite=hasWhite;
+            experimentHandles.numberOfScans=numberOfScans;
 
-            myStruct=pearlHandles;
+            
 
         
     case 'AVI'
@@ -262,7 +264,7 @@ switch handles.experimentType
         aviHandles.hasWhite=hasWhite;
         aviHandles.numberOfScans=numberOfScans;
         
-        myStruct=aviHandles;
+        
         
         
     case 'Odyssey'
@@ -280,14 +282,14 @@ switch handles.experimentType
         odysseyHandles.hasWhite=hasWhite;
         odysseyHandles.numberOfScans=numberOfScans;
         
-        myStruct=odysseyHandles;
+        
 end
 
 
 
 
 %0 for root | 'MyStruct' the name for the root to get | myStruct the variable that is givent to 'myStruct'
-setappdata(0,'MyStruct',myStruct);
+setappdata(0,'experimentHandles',experimentHandles);
 
 %close the load_gui
 close;

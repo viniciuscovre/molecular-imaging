@@ -60,7 +60,22 @@ handles.output = hObject;
     handles.hListener = ...
         addlistener(handles.image_slider,'ContinuousValueChange',@respondToContSlideCallback);
  end
-    
+ 
+ 
+ %creation of the struct to hold all the experiment data from any kind
+ experimentHandles= struct([]);
+ experimentHandles(1).type= '';
+ experimentHandles.target=0;
+ experimentHandles.control=0;
+ experimentHandles.white=0;
+ experimentHandles.prescanTarget=0;
+ experimentHandles.prescanControl=0;
+ experimentHandles.prescanWhite=0;
+ experimentHandles.hasWhite=0;
+ experimentHandles.numberOfScans=0;
+
+ %save the experiment struct in the root of the program
+ setappdata(0,'experimentHandles',experimentHandles);
    
     
 % Update handles structure
@@ -90,22 +105,23 @@ function load_btn_Callback(hObject, eventdata, handles)
     %run script to load the experiment data to program
     
     uiwait(load_gui);
-    disp(getappdata(0,'MyStruct'));
-    % get the handle of load_gui
+    disp(getappdata(0,'experimentHandles'));
+    % get the data from the experiment struct
+    experimentHandles=getappdata(0,'experimentHandles');
     
-    gui_data=getappdata(0,'MyStruct');
+    
     
     %inclue the output of load to handles to be available in all gui
-    handles.image1=gui_data.imgArray700;
-    handles.image2=gui_data.imgArray800;
-    handles.guiData=gui_data;
-    if gui_data.hasWhite
-        handles.imageWhite=gui_data.imgArrayWhite;
-    end
-    
+%     handles.image1=gui_data.imgArray700;
+%     handles.image2=gui_data.imgArray800;
+%     handles.guiData=gui_data;
+%     if gui_data.hasWhite
+%         handles.imageWhite=gui_data.imgArrayWhite;
+%     end
+%     
     set(handles.image_slider, 'Min', 1);
-    set(handles.image_slider, 'Max', gui_data.numberOfScans);
-    set(handles.image_slider, 'SliderStep', [1/(gui_data.numberOfScans-1) , 1/(gui_data.numberOfScans-1) ]);
+    set(handles.image_slider, 'Max', experimentHandles.numberOfScans);
+    set(handles.image_slider, 'SliderStep', [1/(experimentHandles.numberOfScans-1) , 1/(experimentHandles.numberOfScans-1) ]);
     set(handles.image_slider, 'Value', 1);
     
     % save the current/last slider value
@@ -113,12 +129,12 @@ function load_btn_Callback(hObject, eventdata, handles)
     set(handles.textNum,'String',num2str(get(handles.image_slider,'Value')));
     
     % show images in the axes of GUI
-    imagesc(handles.image1(:,:,1,get(hObject,'Value')),'Parent',handles.axes1);
-    imagesc(handles.image2(:,:,1,get(hObject,'Value')),'Parent',handles.axes2);
-    if gui_data.hasWhite
-        imagesc(gui_data.imgArrayWhite(:,:,1,get(hObject,'Value')),'Parent',handles.axes3);
+    imagesc(experimentHandles.target(:,:,1,get(hObject,'Value')),'Parent',handles.axes1);
+    imagesc(experimentHandles.control(:,:,1,get(hObject,'Value')),'Parent',handles.axes2);
+    if experimentHandles.hasWhite
+        imagesc(experimentHandles.white(:,:,1,get(hObject,'Value')),'Parent',handles.axes3);
     end
-        imagesc(gui_data.prescanImg700,'Parent',handles.axes4);
+        imagesc(experimentHandles.prescanTarget,'Parent',handles.axes4);
 
     
     
@@ -157,6 +173,9 @@ end
 
 function respondToContSlideCallback(hObject, eventdata)
     
+    % get the data from the experiment struct
+    experimentHandles=getappdata(0,'experimentHandles');
+    
     % first we need the handles structure which we can get from hObject
     handles = guidata(hObject);
 
@@ -177,10 +196,10 @@ function respondToContSlideCallback(hObject, eventdata)
          set(handles.textNum,'String',num2str(get(hObject,'Value')));
          guidata(hObject,handles);
          
-         imagesc(handles.image1(:,:,1,get(hObject,'Value')),'Parent',handles.axes1);
-         imagesc(handles.image2(:,:,1,get(hObject,'Value')),'Parent',handles.axes2);
-         if (handles.guiData.hasWhite)
-            imagesc(handles.guiData.imgArrayWhite(:,:,1,get(hObject,'Value')),'Parent',handles.axes3);
+         imagesc(experimentHandles.target(:,:,1,get(hObject,'Value')),'Parent',handles.axes1);
+         imagesc(experimentHandles.control(:,:,1,get(hObject,'Value')),'Parent',handles.axes2);
+         if experimentHandles.hasWhite
+            imagesc(experimentHandles.white(:,:,1,get(hObject,'Value')),'Parent',handles.axes3);
          end
     end
     
