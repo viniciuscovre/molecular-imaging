@@ -22,7 +22,7 @@ function varargout = base_gui(varargin)
 
 % Edit the above text to modify the response to help base_gui
 
-% Last Modified by GUIDE v2.5 07-Jul-2016 19:24:09
+% Last Modified by GUIDE v2.5 08-Jul-2016 03:52:08
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -193,13 +193,13 @@ function respondToContSlideCallback(hObject, eventdata)
     
 
 
-% --- Executes on button press in checkbox1.
-function checkbox1_Callback(hObject, eventdata, handles)
-% hObject    handle to checkbox1 (see GCBO)
+% --- Executes on button press in rigidCheckbox.
+function rigidCheckbox_Callback(hObject, eventdata, handles)
+% hObject    handle to rigidCheckbox (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-% Hint: get(hObject,'Value') returns toggle state of checkbox1
+% Hint: get(hObject,'Value') returns toggle state of rigidCheckbox
 
 
 % --- Executes on button press in checkbox2.
@@ -245,3 +245,34 @@ function checkbox6_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 
 % Hint: get(hObject,'Value') returns toggle state of checkbox6
+
+
+% --- Executes on button press in preprocessingApply.
+function preprocessingApply_Callback(hObject, eventdata, handles)
+% hObject    handle to preprocessingApply (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% get the data from the experiment struct
+experimentHandles=getappdata(0,'experimentHandles');
+
+%get the actual value of the Rigid checkbox 
+rigid= get(handles.rigidCheckbox,'Value');
+
+if rigid && experimentHandles.hasWhite
+   for i=1:length(experimentHandles.numberOfScans)
+       [experimentHandles.target(:,:,1,i),experimentHandles.control(:,:,1,i)]=coregis_2(experimentHandles.target(:,:,1,i),experimentHandles.control(:,:,1,i),experimentHandles.white(:,:,1,i));
+   end
+   
+   setappdata(0,'experimentHandles',experimentHandles);
+   
+   plot_images;
+    
+   set(handles.filtersText,'String',get(handles.rigidCheckbox,'String'));
+elseif rigid
+    %disp('Doens''t Have white image');
+    errordlg('This filter requires a white image','Missing files','modal');
+end
+
+
+
