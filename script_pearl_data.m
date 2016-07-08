@@ -39,6 +39,7 @@ if hasWhite
     prescanImgWhite(:,:,1,count) = prescanDataWhite{1,1}{1,1};
 end
 
+h=waitbar(0,'Loading Images...');
 %get the images from the experiment folders
 for i= 1:length(experimentFolders)
     cd(experimentFolders{1,i});
@@ -67,7 +68,10 @@ for i= 1:length(experimentFolders)
     
     count = count+1;
     
+    waitbar(i/length(experimentFolders));
+    
 end
+close(h);
 numberOfScans=count-1;
 
     if ~hasWhite
