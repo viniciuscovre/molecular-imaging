@@ -22,7 +22,7 @@ function varargout = load_gui(varargin)
 
 % Edit the above text to modify the response to help load_gui
 
-% Last Modified by GUIDE v2.5 29-Jun-2016 15:17:21
+% Last Modified by GUIDE v2.5 07-Jul-2016 19:49:47
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -228,12 +228,9 @@ handles.experimentType = contents{get(handles.dropdown,'Value')};
 %execute the right loading code depending on the popup menu
 switch handles.experimentType
     case 'Pearl'
-        %execute the script based on if have WHITE image or not
-        if hasWhite
+
             [imgArray700,imgArray800,imgArrayWhite,prescanImg700,prescanImg800,prescanImgWhite,hasWhite,numberOfScans]=script_pearl_data(handles.experimentFolders,handles.prescanFolder,channel1,channel2,hasWhite);
-        else
-            [imgArray700,imgArray800,imgArrayWhite,prescanImg700,prescanImg800,prescanImgWhite,hasWhite,numberOfScans]=script_pearl_data(handles.experimentFolders,handles.prescanFolder,channel1,channel2,hasWhite);
-        end
+
             %creates a struct to save all the data returned from the load
             %script
             experimentHandles(1).type= 'Pearl';
@@ -377,3 +374,43 @@ function pushbutton4_Callback(hObject, eventdata, handles)
 % hObject    handle to pushbutton4 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
+
+
+% --- Executes on button press in loadTest.
+function loadTest_Callback(hObject, eventdata, handles)
+% hObject    handle to loadTest (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA).
+
+experimentHandles=getappdata(0,'experimentHandles');
+
+
+hasWhite= get(handles.checkboxWhiteImage,'Value');
+    
+
+    if ispc
+       prescanFolder={'D:\Internship\Tichauer Research Resources\Sample Data\Pearl Data\Pearl data\0002203_01';};
+       experimentFolders={'D:\Internship\Tichauer Research Resources\Sample Data\Pearl Data\Pearl data\0002203_01','D:\Internship\Tichauer Research Resources\Sample Data\Pearl Data\Pearl data\0002204_01','D:\Internship\Tichauer Research Resources\Sample Data\Pearl Data\Pearl data\0002205_01','D:\Internship\Tichauer Research Resources\Sample Data\Pearl Data\Pearl data\0002206_01';};
+
+    else
+        
+    end
+  
+    channel1='700';
+    channel2='800';
+            [imgArray700,imgArray800,imgArrayWhite,prescanImg700,prescanImg800,prescanImgWhite,hasWhite,numberOfScans]=script_pearl_data(experimentFolders,prescanFolder,channel1,channel2,hasWhite);
+
+            %script
+            experimentHandles(1).type= 'Pearl';
+            experimentHandles.target=imgArray700;
+            experimentHandles.control=imgArray800;
+            experimentHandles.white=imgArrayWhite;
+            experimentHandles.prescanTarget=prescanImg700;
+            experimentHandles.prescanControl=prescanImg800;
+            experimentHandles.prescanWhite=prescanImgWhite;
+            experimentHandles.hasWhite=hasWhite;
+            experimentHandles.numberOfScans=numberOfScans;
+
+            setappdata(0,'experimentHandles',experimentHandles);
+
+close;
