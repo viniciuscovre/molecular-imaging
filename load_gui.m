@@ -261,7 +261,7 @@ switch handles.experimentType
         experimentHandles.hasWhite=hasWhite;
         experimentHandles.numberOfScans=numberOfScans;
 
-        
+
         
         
     case 'Odyssey'
@@ -382,6 +382,9 @@ function loadTest_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA).
 
+%code just for automate the loading options for use in development
+
+%get the most recent experiment struct
 experimentHandles=getappdata(0,'experimentHandles');
 
 
@@ -400,7 +403,7 @@ hasWhite= get(handles.checkboxWhiteImage,'Value');
     channel2='800';
             [imgArray700,imgArray800,imgArrayWhite,prescanImg700,prescanImg800,prescanImgWhite,hasWhite,numberOfScans]=script_pearl_data(experimentFolders,prescanFolder,channel1,channel2,hasWhite);
 
-            %script
+            %save the result of the script in the struct
             experimentHandles(1).type= 'Pearl';
             experimentHandles.target=imgArray700;
             experimentHandles.control=imgArray800;
@@ -410,7 +413,8 @@ hasWhite= get(handles.checkboxWhiteImage,'Value');
             experimentHandles.prescanWhite=prescanImgWhite;
             experimentHandles.hasWhite=hasWhite;
             experimentHandles.numberOfScans=numberOfScans;
-
+            
+            %update the experiment struct with the new values
             setappdata(0,'experimentHandles',experimentHandles);
-
+%close load_gui
 close;

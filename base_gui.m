@@ -104,13 +104,14 @@ function load_btn_Callback(hObject, eventdata, handles)
     
     %run script to load the experiment data to program
     
+    %wait for load_gui close
     uiwait(load_gui);
-    disp(getappdata(0,'experimentHandles'));
+    
     % get the data from the experiment struct
     experimentHandles=getappdata(0,'experimentHandles');
     
     
-  
+    %configuration of the slider
     set(handles.image_slider, 'Min', 1);
     set(handles.image_slider, 'Max', experimentHandles.numberOfScans);
     set(handles.image_slider, 'SliderStep', [1/(experimentHandles.numberOfScans-1) , 1/(experimentHandles.numberOfScans-1) ]);
@@ -128,6 +129,7 @@ function load_btn_Callback(hObject, eventdata, handles)
 %     end
 %         imagesc(experimentHandles.prescanTarget,'Parent',handles.prescanAxes);
 
+    %call script to show images
     plot_images;
     
     %save the new handles
@@ -188,6 +190,7 @@ function respondToContSlideCallback(hObject, eventdata)
          set(handles.textNum,'String',num2str(get(hObject,'Value')));
          guidata(hObject,handles);
          
+         %call script to show images
          plot_images;
     end
     
@@ -259,18 +262,23 @@ experimentHandles=getappdata(0,'experimentHandles');
 %get the actual value of the Rigid checkbox 
 rigid= get(handles.rigidCheckbox,'Value');
 
+%case rigid is checked and experiment struct has white image
 if rigid && experimentHandles.hasWhite
    for i=1:length(experimentHandles.numberOfScans)
        [experimentHandles.target(:,:,1,i),experimentHandles.control(:,:,1,i)]=coregis_2(experimentHandles.target(:,:,1,i),experimentHandles.control(:,:,1,i),experimentHandles.white(:,:,1,i));
    end
    
+   %update control and target images in struct
    setappdata(0,'experimentHandles',experimentHandles);
    
+   %call script to show images
    plot_images;
     
+   %write applied filters in the textbox
    set(handles.filtersText,'String',get(handles.rigidCheckbox,'String'));
+
+%case rigid is checked but experiment struct doesn't have white image
 elseif rigid
-    %disp('Doens''t Have white image');
     errordlg('This filter requires a white image','Missing files','modal');
 end
 
