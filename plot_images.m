@@ -13,6 +13,7 @@ if experimentHandles.hasWhite
     set(handles.whiteText,'Visible','on');
     set(handles.whiteAxes,'Visible','on');
 else
+    cla(handles.whiteAxes);
     set(handles.whiteText,'Visible','off');
     set(handles.whiteAxes,'Visible','off');
 end
