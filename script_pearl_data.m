@@ -79,8 +79,5 @@ numberOfScans=count-1;
         prescanImgWhite=0;
     end
 
-
-
-
 end
 

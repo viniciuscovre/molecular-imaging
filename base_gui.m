@@ -22,16 +22,16 @@ function varargout = base_gui(varargin)
 
 % Edit the above text to modify the response to help base_gui
 
-% Last Modified by GUIDE v2.5 08-Jul-2016 03:52:08
+% Last Modified by GUIDE v2.5 09-Jul-2016 15:48:11
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
 gui_State = struct('gui_Name',       mfilename, ...
-                   'gui_Singleton',  gui_Singleton, ...
-                   'gui_OpeningFcn', @base_gui_OpeningFcn, ...
-                   'gui_OutputFcn',  @base_gui_OutputFcn, ...
-                   'gui_LayoutFcn',  [] , ...
-                   'gui_Callback',   []);
+    'gui_Singleton',  gui_Singleton, ...
+    'gui_OpeningFcn', @base_gui_OpeningFcn, ...
+    'gui_OutputFcn',  @base_gui_OutputFcn, ...
+    'gui_LayoutFcn',  [] , ...
+    'gui_Callback',   []);
 if nargin && ischar(varargin{1})
     gui_State.gui_Callback = str2func(varargin{1});
 end
@@ -56,37 +56,37 @@ function base_gui_OpeningFcn(hObject, eventdata, handles, varargin)
 handles.output = hObject;
 
 % add a continuous value change listener
- if ~isfield(handles,'hListener')
+if ~isfield(handles,'hListener')
     handles.hListener = ...
         addlistener(handles.image_slider,'ContinuousValueChange',@respondToContSlideCallback);
- end
- 
- 
- %creation of the struct to hold all the experiment data from any kind
- experimentHandles= struct([]);
- experimentHandles(1).type= '';
- experimentHandles.target=0;
- experimentHandles.control=0;
- experimentHandles.white=0;
- experimentHandles.prescanTarget=0;
- experimentHandles.prescanControl=0;
- experimentHandles.prescanWhite=0;
- experimentHandles.hasWhite=0;
- experimentHandles.numberOfScans=0;
+end
 
- %save the experiment struct in the root of the program
- setappdata(0,'experimentHandles',experimentHandles);
-   
-    
-% Update handles structure
-guidata(hObject, handles);
+
+%creation of the struct to hold all the experiment data from any kind
+experimentHandles= struct([]);
+experimentHandles(1).type= '';
+experimentHandles.target=0;
+experimentHandles.control=0;
+experimentHandles.white=0;
+experimentHandles.prescanTarget=0;
+experimentHandles.prescanControl=0;
+experimentHandles.prescanWhite=0;
+experimentHandles.hasWhite=0;
+experimentHandles.numberOfScans=0;
+
+%save the experiment struct in the root of the program
+setappdata(0,'experimentHandles',experimentHandles);
+
 
 % UIWAIT makes base_gui wait for user response (see UIRESUME)
 % uiwait(handles.base_gui);
 
+% Update handles structure
+guidata(hObject, handles);
+
 
 % --- Outputs from this function are returned to the command line.
-function varargout = base_gui_OutputFcn(hObject, eventdata, handles) 
+function varargout = base_gui_OutputFcn(hObject, eventdata, handles)
 % varargout  cell array for returning output args (see VARARGOUT);
 % hObject    handle to figure
 % eventdata  reserved - to be defined in a future version of MATLAB
@@ -101,27 +101,27 @@ function load_btn_Callback(hObject, eventdata, handles)
 % hObject    handle to load_btn (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-    
-    %run script to load the experiment data to program
-    
-    %wait for load_gui close
-    uiwait(load_gui);
-    
-    % get the data from the experiment struct
-    experimentHandles=getappdata(0,'experimentHandles');
-    
-    
-    %configuration of the slider
-    set(handles.image_slider, 'Min', 1);
-    set(handles.image_slider, 'Max', experimentHandles.numberOfScans);
-    set(handles.image_slider, 'SliderStep', [1/(experimentHandles.numberOfScans-1) , 1/(experimentHandles.numberOfScans-1) ]);
-    set(handles.image_slider, 'Value', 1);
-    
-    % save the current/last slider value
-    handles.lastSliderVal = get(handles.image_slider,'Value');
-    set(handles.textNum,'String',num2str(get(handles.image_slider,'Value')));
-    
-    % show images in the axes of GUI
+
+%run script to load the experiment data to program
+
+%wait for load_gui close
+uiwait(load_gui);
+
+% get the data from the experiment struct
+experimentHandles=getappdata(0,'experimentHandles');
+
+
+%configuration of the slider
+set(handles.image_slider, 'Min', 1);
+set(handles.image_slider, 'Max', experimentHandles.numberOfScans);
+set(handles.image_slider, 'SliderStep', [1/(experimentHandles.numberOfScans-1) , 1/(experimentHandles.numberOfScans-1) ]);
+set(handles.image_slider, 'Value', 1);
+
+% save the current/last slider value
+handles.lastSliderVal = get(handles.image_slider,'Value');
+set(handles.textNum,'String',num2str(get(handles.image_slider,'Value')));
+
+% show images in the axes of GUI
 %     imagesc(experimentHandles.target(:,:,1,get(hObject,'Value')),'Parent',handles.targetAxes);
 %     imagesc(experimentHandles.control(:,:,1,get(hObject,'Value')),'Parent',handles.controlAxes);
 %     if experimentHandles.hasWhite
@@ -129,11 +129,11 @@ function load_btn_Callback(hObject, eventdata, handles)
 %     end
 %         imagesc(experimentHandles.prescanTarget,'Parent',handles.prescanAxes);
 
-    %call script to show images
-    plot_images;
-    
-    %save the new handles
-    guidata(hObject,handles);
+%call script to show images
+plot_images;
+
+%save the new handles
+guidata(hObject,handles);
 
 
 % --- Executes on button press in helpButton.
@@ -166,34 +166,34 @@ if isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColo
 end
 
 function respondToContSlideCallback(hObject, eventdata)
+
+% get the data from the experiment struct
+experimentHandles=getappdata(0,'experimentHandles');
+
+% first we need the handles structure which we can get from hObject
+handles = guidata(hObject);
+
+newVal = floor(get(hObject,'Value'));
+
+% set the slider value to this integer which will be in the set {1,2,3,...,12,13}
+set(hObject,'Value',newVal);
+
+% now only do something in response to the slider movement if the
+% new value is different from the last slider value
+
+if newVal ~= handles.lastSliderVal
     
-    % get the data from the experiment struct
-    experimentHandles=getappdata(0,'experimentHandles');
+    % save the new value
+    handles.lastSliderVal = newVal;
     
-    % first we need the handles structure which we can get from hObject
-    handles = guidata(hObject);
-
-    newVal = floor(get(hObject,'Value'));
-
-    % set the slider value to this integer which will be in the set {1,2,3,...,12,13}
-    set(hObject,'Value',newVal);
-
-    % now only do something in response to the slider movement if the 
-    % new value is different from the last slider value
-
-    if newVal ~= handles.lastSliderVal
-              
-         % save the new value
-         handles.lastSliderVal = newVal;
-
-         % display the current value of the slider
-         set(handles.textNum,'String',num2str(get(hObject,'Value')));
-         guidata(hObject,handles);
-         
-         %call script to show images
-         plot_images;
-    end
+    % display the current value of the slider
+    set(handles.textNum,'String',num2str(get(hObject,'Value')));
+    guidata(hObject,handles);
     
+    %call script to show images
+    plot_images;
+end
+
 
 
 % --- Executes on button press in rigidCheckbox.
@@ -214,13 +214,13 @@ function checkbox2_Callback(hObject, eventdata, handles)
 % Hint: get(hObject,'Value') returns toggle state of checkbox2
 
 
-% --- Executes on button press in checkbox3.
-function checkbox3_Callback(hObject, eventdata, handles)
-% hObject    handle to checkbox3 (see GCBO)
+% --- Executes on button press in BGSubtraction.
+function BGSubtraction_Callback(hObject, eventdata, handles)
+% hObject    handle to BGSubtraction (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-% Hint: get(hObject,'Value') returns toggle state of checkbox3
+% Hint: get(hObject,'Value') returns toggle state of BGSubtraction
 
 
 % --- Executes on button press in checkbox4.
@@ -259,28 +259,37 @@ function preprocessingApply_Callback(hObject, eventdata, handles)
 % get the data from the experiment struct
 experimentHandles=getappdata(0,'experimentHandles');
 
-%get the actual value of the Rigid checkbox 
+%get the actual value of the Rigid checkbox
 rigid= get(handles.rigidCheckbox,'Value');
 
+%get the actual value of the BGSubtraction checkbox
+BGSubtraction= get(handles.BGSubtractionCheckbox,'Value');
+
+% CODE FOR RIGID MOTION CORRECTION
 %case rigid is checked and experiment struct has white image
 if rigid && experimentHandles.hasWhite
-   for i=1:length(experimentHandles.numberOfScans)
-       [experimentHandles.target(:,:,1,i),experimentHandles.control(:,:,1,i)]=coregis_2(experimentHandles.target(:,:,1,i),experimentHandles.control(:,:,1,i),experimentHandles.white(:,:,1,i));
-   end
-   
-   %update control and target images in struct
-   setappdata(0,'experimentHandles',experimentHandles);
-   
-   %call script to show images
-   plot_images;
+    for i=1:length(experimentHandles.numberOfScans)
+        [experimentHandles.target(:,:,1,i),experimentHandles.control(:,:,1,i)]=coregis_2(experimentHandles.target(:,:,1,i),experimentHandles.control(:,:,1,i),experimentHandles.white(:,:,1,i));
+    end
     
-   %write applied filters in the textbox
-   set(handles.filtersText,'String',get(handles.rigidCheckbox,'String'));
-
-%case rigid is checked but experiment struct doesn't have white image
+    %update control and target images in struct
+    setappdata(0,'experimentHandles',experimentHandles);
+    
+    %call script to show images
+    plot_images;
+    
+    %write applied filters in the textbox
+    set(handles.filtersText,'String',get(handles.rcloseigidCheckbox,'String'));
+    
+    %case rigid is checked but experiment struct doesn't have white image
 elseif rigid
     errordlg('This filter requires a white image','Missing files','modal');
 end
 
-
-
+% CODE FOR BG SUBTRACTION
+if BGSubtraction
+       for i=1:length(experimentHandles.numberOfScans)
+           experimentHandles.target(:,:,1,i)=imsubtract(experimentHandles.target(:,:,1,i), experimentHandles.prescanTarget);
+           experimentHandles.control(:,:,1,i)=imsubtract(experimentHandles.control(:,:,1,i), experimentHandles.prescanControl);
+       end
+end

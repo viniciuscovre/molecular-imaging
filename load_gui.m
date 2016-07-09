@@ -290,14 +290,6 @@ setappdata(0,'experimentHandles',experimentHandles);
 %close the load_gui
 close;
 
-
-
-
-
-
-
-
-
 % --- Executes on button press in browse1.
 function browse1_Callback(hObject, eventdata, handles)
 % hObject    handle to browse1 (see GCBO)
