@@ -263,7 +263,7 @@ experimentHandles=getappdata(0,'experimentHandles');
 rigid= get(handles.rigidCheckbox,'Value');
 
 %get the actual value of the BGSubtraction checkbox
-BGSubtraction= get(handles.BGSubtractionCheckbox,'Value');
+BGSubtraction= get(handles.BGSubtraction,'Value');
 
 % CODE FOR RIGID MOTION CORRECTION
 %case rigid is checked and experiment struct has white image
@@ -279,7 +279,7 @@ if rigid && experimentHandles.hasWhite
     plot_images;
     
     %write applied filters in the textbox
-    set(handles.filtersText,'String',get(handles.rcloseigidCheckbox,'String'));
+    set(handles.filtersText,'String',get(handles.rigidCheckbox,'String'));
     
     %case rigid is checked but experiment struct doesn't have white image
 elseif rigid
