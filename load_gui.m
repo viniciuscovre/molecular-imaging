@@ -280,10 +280,7 @@ switch handles.experimentType
         experimentHandles.numberOfScans=numberOfScans;
         
 end
-
-
-
-
+disp('load');
 %0 for root | 'MyStruct' the name for the root to get | myStruct the variable that is givent to 'myStruct'
 setappdata(0,'experimentHandles',experimentHandles);
 
@@ -331,6 +328,8 @@ function browse3_Callback(hObject, eventdata, handles)
 % hObject    handle to browse3 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
+
+disp('browse3');
 
 %select folders with experiment data
 browseWhite=uigetfile_n_dir;
@@ -386,9 +385,9 @@ hasWhite= get(handles.checkboxWhiteImage,'Value');
     if ispc
        prescanFolder={'D:\Internship\Tichauer Research Resources\Sample Data\Pearl Data\Pearl data\0002203_01';};
        experimentFolders={'D:\Internship\Tichauer Research Resources\Sample Data\Pearl Data\Pearl data\0002203_01','D:\Internship\Tichauer Research Resources\Sample Data\Pearl Data\Pearl data\0002204_01','D:\Internship\Tichauer Research Resources\Sample Data\Pearl Data\Pearl data\0002205_01','D:\Internship\Tichauer Research Resources\Sample Data\Pearl Data\Pearl data\0002206_01';};
-
     else
-        
+       prescanFolder={'/Users/vinacovre/Google Drive/Pesquisas/Summer Research 2016 IIT/Research Repository/Sample Data/Pearl Data (1)/Pearl data/0002203_01';};
+       experimentFolders={'/Users/vinacovre/Google Drive/Pesquisas/Summer Research 2016 IIT/Research Repository/Sample Data/Pearl Data (1)/Pearl data/0002204_01', '/Users/vinacovre/Google Drive/Pesquisas/Summer Research 2016 IIT/Research Repository/Sample Data/Pearl Data (1)/Pearl data/0002205_01','/Users/vinacovre/Google Drive/Pesquisas/Summer Research 2016 IIT/Research Repository/Sample Data/Pearl Data (1)/Pearl data/0002206_01';};
     end
   
     channel1='700';
