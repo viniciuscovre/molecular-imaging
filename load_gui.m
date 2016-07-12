@@ -385,7 +385,7 @@ hasWhite= get(handles.checkboxWhiteImage,'Value');
 
     if ispc
        prescanFolder={'D:\Internship\Tichauer Research Resources\Sample Data\Pearl Data\Pearl data\0002203_01';};
-       experimentFolders={'D:\Internship\Tichauer Research Resources\Sample Data\Pearl Data\Pearl data\0002203_01','D:\Internship\Tichauer Research Resources\Sample Data\Pearl Data\Pearl data\0002204_01','D:\Internship\Tichauer Research Resources\Sample Data\Pearl Data\Pearl data\0002205_01','D:\Internship\Tichauer Research Resources\Sample Data\Pearl Data\Pearl data\0002206_01';};
+       experimentFolders={'D:\Internship\Tichauer Research Resources\Sample Data\Pearl Data\Pearl data\0002204_01','D:\Internship\Tichauer Research Resources\Sample Data\Pearl Data\Pearl data\0002205_01','D:\Internship\Tichauer Research Resources\Sample Data\Pearl Data\Pearl data\0002206_01','D:\Internship\Tichauer Research Resources\Sample Data\Pearl Data\Pearl data\0002207_01';};
 
     else
         

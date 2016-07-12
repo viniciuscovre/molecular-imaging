@@ -268,15 +268,14 @@ BGSubtraction= get(handles.BGSubtraction,'Value');
 % CODE FOR RIGID MOTION CORRECTION
 %case rigid is checked and experiment struct has white image
 if rigid && experimentHandles.hasWhite
-    for i=1:length(experimentHandles.numberOfScans)
+    for i=1:experimentHandles.numberOfScans
         [experimentHandles.target(:,:,1,i),experimentHandles.control(:,:,1,i)]=coregis_2(experimentHandles.target(:,:,1,i),experimentHandles.control(:,:,1,i),experimentHandles.white(:,:,1,i));
     end
     
     %update control and target images in struct
     setappdata(0,'experimentHandles',experimentHandles);
     
-    %call script to show images
-    plot_images;
+    
     
     %write applied filters in the textbox
     set(handles.filtersText,'String',get(handles.rigidCheckbox,'String'));
@@ -288,8 +287,14 @@ end
 
 % CODE FOR BG SUBTRACTION
 if BGSubtraction
-       for i=1:length(experimentHandles.numberOfScans)
+       for i=1:experimentHandles.numberOfScans
            experimentHandles.target(:,:,1,i)=imsubtract(experimentHandles.target(:,:,1,i), experimentHandles.prescanTarget);
            experimentHandles.control(:,:,1,i)=imsubtract(experimentHandles.control(:,:,1,i), experimentHandles.prescanControl);
        end
 end
+
+%update control and target images in struct
+    setappdata(0,'experimentHandles',experimentHandles);
+    
+    %call script to show images
+    plot_images;
