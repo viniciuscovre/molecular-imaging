@@ -121,13 +121,6 @@ set(handles.image_slider, 'Value', 1);
 handles.lastSliderVal = get(handles.image_slider,'Value');
 set(handles.textNum,'String',num2str(get(handles.image_slider,'Value')));
 
-% show images in the axes of GUI
-%     imagesc(experimentHandles.target(:,:,1,get(hObject,'Value')),'Parent',handles.targetAxes);
-%     imagesc(experimentHandles.control(:,:,1,get(hObject,'Value')),'Parent',handles.controlAxes);
-%     if experimentHandles.hasWhite
-%         imagesc(experimentHandles.white(:,:,1,get(hObject,'Value')),'Parent',handles.whiteAxes);
-%     end
-%         imagesc(experimentHandles.prescanTarget,'Parent',handles.prescanAxes);
 
 %call script to show images
 plot_images;
